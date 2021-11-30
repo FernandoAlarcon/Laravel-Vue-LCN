@@ -14,7 +14,7 @@
       <div class="container">
         <div class="content-center brand">
           <img class="n-logo" src="./assets/img/now-logo.png" alt="">
-          <h1 class="h1-seo"> Es hora de organizar tu contabilida </h1>
+          <h1 class="h1-seo"> Es hora de organizar tu contabilidad </h1>
           <h3> English - Português - Español </h3>
         </div>
         <!-- <h6 class="category category-absolute">Designed by
