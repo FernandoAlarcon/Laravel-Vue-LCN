@@ -31,8 +31,7 @@
             @else
                 <div id="Aplicacion" >
                     <app auth="{{ Auth::user() }}" ></app>
-                </div> 
-                
+                </div>  
                 <!-- Scripts -->
                 <script src="{{ asset('js/app.js') }}" defer></script>
             @endguest

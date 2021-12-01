@@ -24,6 +24,7 @@ Auth::routes();
 
 Route::get('/index', function (){ return view('index'); })->name('index');
 Route::get('/entrar', function (){ return view('loguin'); })->name('entrar');
+Route::get('/registro', function (){ return view('register'); })->name('registro');
 Route::get('/about_us', function (){ return view('about_us'); })->name('aboout_us');
 
 Route::get('/{any?}', function (){

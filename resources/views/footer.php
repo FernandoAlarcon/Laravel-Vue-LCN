@@ -1,4 +1,4 @@
-<footer class="footer" data-background-color="black">
+<!-- <footer class="footer" data-background-color="black">
       <div class=" container ">
         <nav>
           <ul>
@@ -26,7 +26,13 @@
           </script>, Designed by INFINETY
         </div>
       </div>
-</footer>
+</footer> -->
+
+<div class="py-5 bg-gray-700 text-center text-orange" style="background: #2C2C2C; color: #F96332;" > 
+        <center>
+            © Copyright 2022. All Rights Reserved INFINETY.
+        </center>              
+</div>
 
  <!--   Core JS Files   -->
  <script src="assets/js/core/jquery.min.js" type="text/javascript"></script>

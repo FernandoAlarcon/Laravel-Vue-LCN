@@ -2480,7 +2480,31 @@ __webpack_require__.r(__webpack_exports__);
 //
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  mounted: function mounted() {}
+  mounted: function mounted() {},
+  methods: {
+    logout: function logout() {
+      var _this = this;
+
+      axios.get('api/logout').then(function (response) {
+        localStorage.removeItem('auth_token'); // remove any other authenticated user data you put in local storage
+        // Assuming that you set this earlier for subsequent Ajax request at some point like so:
+        // axios.defaults.headers.common['Authorization'] = 'Bearer ' + auth_token ;
+
+        delete axios.defaults.headers.common['Authorization']; // If using 'vue-router' redirect to login page
+
+        _this.$router.go('/');
+      })["catch"](function (error) {
+        // If the api request failed then you still might want to remove
+        // the same data from localStorage anyways
+        // perhaps this code should go in a finally method instead of then and catch
+        // methods to avoid duplication.
+        localStorage.removeItem('auth_token');
+        delete axios.defaults.headers.common['Authorization'];
+
+        _this.$router.go('/');
+      });
+    }
+  }
 });
 
 /***/ }),
@@ -2792,6 +2816,10 @@ var routes = [// { path: '/register', name: 'register', component: Register, met
 }, {
   path: '/index',
   name: 'index',
+  component: _pages_admin_Dashboard_vue__WEBPACK_IMPORTED_MODULE_1__["default"]
+}, {
+  path: '/home',
+  name: 'home',
   component: function component() {
     return Promise.resolve(/*! import() */).then(__webpack_require__.bind(__webpack_require__, /*! ../components/Index.vue */ "./resources/js/components/Index.vue"));
   }
@@ -43276,7 +43304,33 @@ var render = function () {
                       1
                     ),
                     _vm._v(" "),
-                    _vm._m(0),
+                    _c("div", [
+                      _c("div", [
+                        _c(
+                          "button",
+                          {
+                            staticClass:
+                              "text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium",
+                            attrs: {
+                              type: "submit",
+                              onclick:
+                                "event.preventDefault();  document.getElementById('logout-form').submit();",
+                            },
+                            on: {
+                              click: function ($event) {
+                                $event.preventDefault()
+                                return _vm.logout.apply(null, arguments)
+                              },
+                            },
+                          },
+                          [
+                            _vm._v(
+                              "\n                              Cerrar Session\n                          "
+                            ),
+                          ]
+                        ),
+                      ]),
+                    ]),
                   ]),
                 ]),
               ]
@@ -43326,56 +43380,18 @@ var render = function () {
                   ]
                 ),
                 _vm._v(" "),
-                _vm._m(1),
+                _vm._m(0),
               ]
             ),
           ]
         ),
       ]),
       _vm._v(" "),
-      _vm._m(2),
+      _vm._m(1),
     ]
   )
 }
 var staticRenderFns = [
-  function () {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", [
-      _c("div", [
-        _c(
-          "a",
-          {
-            staticClass:
-              "text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium",
-            attrs: {
-              onclick:
-                "event.preventDefault();  document.getElementById('logout-form').submit();",
-            },
-          },
-          [
-            _vm._v(
-              "\n                              Cerrar Session\n                        "
-            ),
-          ]
-        ),
-        _vm._v(" "),
-        _c(
-          "form",
-          {
-            staticClass: "d-none",
-            attrs: { id: "logout-form", action: "logout", method: "POST" },
-          },
-          [
-            _vm._v(
-              "\n                          @csrf\n                        "
-            ),
-          ]
-        ),
-      ]),
-    ])
-  },
   function () {
     var _vm = this
     var _h = _vm.$createElement

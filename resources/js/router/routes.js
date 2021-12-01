@@ -17,7 +17,8 @@ const routes = [
 
   { path: '/', name: 'home', component: Home, meta: { auth: undefined } },
  
-  { path: '/index',           name: 'index',           component:() => import('../components/Index.vue')},
+  { path: '/index',           name: 'index',            component: AdminDashboard },
+  { path: '/home',            name: 'home',            component:() => import('../components/Index.vue')},
   { path: '/categorias',      name: 'categorias',      component:() => import('../components/Data/Categorias.vue')      },
   { path: '/subcategorias',   name: 'subcategorias',   component:() => import('../components/Data/SubCategorias.vue')   },
   { path: '/gestioningresos', name: 'gestioningresos', component:() => import('../components/Data/GestionIngresos.vue') },

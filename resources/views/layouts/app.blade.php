@@ -23,12 +23,11 @@
     <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
 </head>
 <body>
-    <div id="app"> 
+<div id="app"> 
             
             
             @guest
-                @include('layouts.navigation')
-                @yield('content')
+                @include('home')
             @else
                 <div id="Aplicacion" >
                     <app auth="{{ Auth::user() }}" ></app>

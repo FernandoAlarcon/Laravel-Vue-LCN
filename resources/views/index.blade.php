@@ -49,19 +49,9 @@
         <div class="container">
           <h3 class="title"> Infinety App contable  </h3>
           <h4>Buttons</h4>
-          <p class="category">Pick your style</p>
+          <p class="category">Lleva una contabilidad prometedora sin importar el tamaño de ti empres</p>
           <div class="row">
-            <div class="col-md-10">
-              <button class="btn btn-primary" type="button">Default</button>
-              <button class="btn btn-primary btn-round" type="button">Round</button>
-              <button class="btn btn-primary btn-round" type="button">
-                <i class="now-ui-icons ui-2_favourite-28"></i> With Icon
-              </button>
-              <button class="btn btn-primary btn-icon btn-round" type="button">
-                <i class="now-ui-icons ui-2_favourite-28"></i>
-              </button>
-              <button class="btn btn-primary btn-outline-primary btn-round" type="button">Outline</button>
-            </div>
+            
           </div>
           <p class="category">Pick your size</p>
           <div class="row">

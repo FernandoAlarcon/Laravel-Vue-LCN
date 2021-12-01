@@ -88,14 +88,14 @@
                       </a>
                     </button> -->
 
-                    <div>
-                        <a class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium" onclick="event.preventDefault();  document.getElementById('logout-form').submit();">
+                    <div> 
+                        <!-- <form id="logout-form" action="http://localhost:8000/logout" method="POST" class=""> -->
+                           
+                          <button type="submit" @click.prevent="logout" class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium" onclick="event.preventDefault();  document.getElementById('logout-form').submit();">
                               Cerrar Session
-                        </a>
+                          </button>
 
-                        <form id="logout-form" action="logout" method="POST" class="d-none">
-                          @csrf
-                        </form>
+                        <!-- </form> -->
                     </div>
                  
             </div>
@@ -159,8 +159,33 @@ import { mapGetters } from 'vuex'
 
  export default {
         mounted() { 
+        },
+        methods: {
+            logout() {
+               axios.get('api/logout').then(response => {
+                  localStorage.removeItem('auth_token');
+
+                  // remove any other authenticated user data you put in local storage
+
+                  // Assuming that you set this earlier for subsequent Ajax request at some point like so:
+                  // axios.defaults.headers.common['Authorization'] = 'Bearer ' + auth_token ;
+                  delete axios.defaults.headers.common['Authorization'];
+
+                  // If using 'vue-router' redirect to login page
+                  this.$router.go('/');
+                })
+                .catch(error => {
+                  // If the api request failed then you still might want to remove
+                  // the same data from localStorage anyways
+                  // perhaps this code should go in a finally method instead of then and catch
+                  // methods to avoid duplication.
+                  localStorage.removeItem('auth_token');
+                  delete axios.defaults.headers.common['Authorization'];
+                  this.$router.go('/');
+                }); 
+            }
         }
-  }
+}
 </script>
 
 <style scoped>
