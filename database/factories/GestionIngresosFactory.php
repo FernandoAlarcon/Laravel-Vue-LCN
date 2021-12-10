@@ -22,10 +22,10 @@ class GestionIngresosFactory extends Factory
     public function definition()
     {
         return [
-            'Nombre_Tipo_Entradas' => $this->faker->name,
-            'Estado'    => $this->faker->randomElement(['Positivo', 'Negativo']),
-            'Tipo_Ingreso'  => $this->faker->randomElement(['Unico', 'Multiple Mensual']),
-            'created_at' => now()
+            'nombre_tipo_entradas' => $this->faker->name,
+            'estado'               => $this->faker->randomElement(['Positivo', 'Negativo']),
+            'tipo_ingreso'         => $this->faker->randomElement(['Unico', 'Multiple Mensual']),
+            'created_at'           => now()
         ];
     }
 }

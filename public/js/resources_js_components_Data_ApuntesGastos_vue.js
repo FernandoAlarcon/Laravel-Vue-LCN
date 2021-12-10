@@ -396,23 +396,28 @@ Vue.component('multiselect', (vue_multiselect__WEBPACK_IMPORTED_MODULE_3___defau
     CrearData: function CrearData() {
       var _this4 = this;
 
-      var URL_BASE = this.Ruta;
-      axios__WEBPACK_IMPORTED_MODULE_0___default().post(URL_BASE, this.NuevaData).then(function (response) {
-        _this4.getData(_this4.pagination.current_page);
+      if (this.NuevaData.categoriagasto == '' || this.NuevaData.subcategoriagasto == '' || this.NuevaData.importe == '' || this.NuevaData.concepto == '') {
+        this.$toasted.error('Debes llenar todos los campos');
+      } else {
+        var URL_BASE = this.Ruta;
+        axios__WEBPACK_IMPORTED_MODULE_0___default().post(URL_BASE, this.NuevaData).then(function (response) {
+          _this4.getData(_this4.pagination.current_page);
 
-        _this4.NuevaData.id = '';
-        _this4.NuevaData.categoriagasto = '';
-        _this4.NuevaData.subcategoriagasto = '';
-        _this4.NuevaData.importe = '';
-        _this4.NuevaData.concepto = '';
-        _this4.errors = [];
-        _this4.showModal = !_this4.showModal;
-        sweetalert__WEBPACK_IMPORTED_MODULE_1___default()("Informacion agregada", {
-          icon: "success"
+          _this4.NuevaData.id = '';
+          _this4.NuevaData.categoriagasto = '';
+          _this4.NuevaData.subcategoriagasto = '';
+          _this4.NuevaData.importe = '';
+          _this4.NuevaData.concepto = '';
+          _this4.errors = [];
+          _this4.showModal = !_this4.showModal;
+          sweetalert__WEBPACK_IMPORTED_MODULE_1___default()("Informacion agregada", {
+            icon: "success"
+          });
+        })["catch"](function (error) {
+          _this4.errors = error.response.data;
         });
-      })["catch"](function (error) {
-        _this4.errors = error.response.data;
-      });
+      } /// finish else
+
     },
     DeleteData: function DeleteData(Data) {
       var _this5 = this;
@@ -600,7 +605,7 @@ var render = function () {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [
+  return _c("div", { staticStyle: { heigth: "100%" } }, [
     _c("div", [
       _c("div", [
         _c("div", { staticClass: "grid grid-cols-6 gap-4" }, [

@@ -340,23 +340,28 @@ __webpack_require__.r(__webpack_exports__);
     CrearData: function CrearData() {
       var _this2 = this;
 
-      var URL_BASE = this.Ruta;
-      console.log('Data ' + this.NuevaData.nombre_tipo_entradas);
-      axios__WEBPACK_IMPORTED_MODULE_0___default().post(URL_BASE, this.NuevaData).then(function (response) {
-        _this2.getData(_this2.pagination.current_page);
+      if (this.NuevaData.nombre_tipo_entradas == '' || this.NuevaData.tipo_ingreso == '' || this.NuevaData.estado == '') {
+        this.$toasted.error('Debes llenar todos los campos');
+      } else {
+        var URL_BASE = this.Ruta;
+        console.log('Data ' + this.NuevaData.nombre_tipo_entradas);
+        axios__WEBPACK_IMPORTED_MODULE_0___default().post(URL_BASE, this.NuevaData).then(function (response) {
+          _this2.getData(_this2.pagination.current_page);
 
-        _this2.NuevaData.id = '';
-        _this2.NuevaData.nombre_tipo_entradas = '';
-        _this2.NuevaData.tipo_ingreso = '';
-        _this2.NuevaData.estado = '';
-        _this2.errors = [];
-        _this2.showModal = !_this2.showModal;
-        sweetalert__WEBPACK_IMPORTED_MODULE_1___default()("Informacion agregada", {
-          icon: "success"
+          _this2.NuevaData.id = '';
+          _this2.NuevaData.nombre_tipo_entradas = '';
+          _this2.NuevaData.tipo_ingreso = '';
+          _this2.NuevaData.estado = '';
+          _this2.errors = [];
+          _this2.showModal = !_this2.showModal;
+          sweetalert__WEBPACK_IMPORTED_MODULE_1___default()("Informacion agregada", {
+            icon: "success"
+          });
+        })["catch"](function (error) {
+          _this2.errors = error.response.data;
         });
-      })["catch"](function (error) {
-        _this2.errors = error.response.data;
-      });
+      } /// finish else
+
     },
     DeleteData: function DeleteData(Data) {
       var _this3 = this;

@@ -22,8 +22,8 @@ class SubCategoriasGastosFactory extends Factory
     public function definition()
     {
         return [
-                'NombreSubcategorias' => $this->faker->name,
-                'TipoGastoMensual'    => $this->faker->randomElement(['Fijo', 'Multiple']),
+                'nombresubcategorias' => $this->faker->name,
+                'tipogastomensual'    => $this->faker->randomElement(['Fijo', 'Multiple']),
                 'created_at' => now()
         ];
        

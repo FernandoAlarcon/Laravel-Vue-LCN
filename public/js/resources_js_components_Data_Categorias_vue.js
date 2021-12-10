@@ -15,6 +15,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var sweetalert__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! sweetalert */ "./node_modules/sweetalert/dist/sweetalert.min.js");
 /* harmony import */ var sweetalert__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(sweetalert__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var vue_toasted__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vue-toasted */ "./node_modules/vue-toasted/dist/vue-toasted.min.js");
+/* harmony import */ var vue_toasted__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(vue_toasted__WEBPACK_IMPORTED_MODULE_2__);
 //
 //
 //
@@ -248,6 +250,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -342,23 +345,28 @@ __webpack_require__.r(__webpack_exports__);
     CrearData: function CrearData() {
       var _this2 = this;
 
-      var URL_BASE = this.Ruta;
-      console.log(URL_BASE);
-      axios__WEBPACK_IMPORTED_MODULE_0___default().post(URL_BASE, this.NuevaData).then(function (response) {
-        _this2.getData(_this2.pagination.current_page);
+      if (this.NuevaData.nombrecategorias == '' || this.NuevaData.tipocategoria == '' || this.NuevaData.estadocategoria == '') {
+        this.$toasted.error('Debes llenar todos los campos');
+      } else {
+        var URL_BASE = this.Ruta;
+        console.log(URL_BASE);
+        axios__WEBPACK_IMPORTED_MODULE_0___default().post(URL_BASE, this.NuevaData).then(function (response) {
+          _this2.getData(_this2.pagination.current_page);
 
-        _this2.NuevaData.id = '';
-        _this2.NuevaData.nombrecategorias = '';
-        _this2.NuevaData.tipocategoria = '';
-        _this2.NuevaData.estadocategoria = '';
-        _this2.errors = [];
-        _this2.showModal = !_this2.showModal;
-        sweetalert__WEBPACK_IMPORTED_MODULE_1___default()("Informacion agregada", {
-          icon: "success"
+          _this2.NuevaData.id = '';
+          _this2.NuevaData.nombrecategorias = '';
+          _this2.NuevaData.tipocategoria = '';
+          _this2.NuevaData.estadocategoria = '';
+          _this2.errors = [];
+          _this2.showModal = !_this2.showModal;
+          sweetalert__WEBPACK_IMPORTED_MODULE_1___default()("Informacion agregada", {
+            icon: "success"
+          });
+        })["catch"](function (error) {
+          _this2.errors = error.response.data;
         });
-      })["catch"](function (error) {
-        _this2.errors = error.response.data;
-      });
+      } /// final else
+
     },
     DeleteData: function DeleteData(Data) {
       var _this3 = this;

@@ -6,6 +6,7 @@ let VueAxios         = require('vue-axios').default;
 
 let VueRouter        = require('vue-router').default; 
 
+
 let Vuex             = require('vuex');  
 let VueI18n          = require('vue-i18n'); 
 let VueCookie        = require('vue-cookies');  
@@ -16,6 +17,7 @@ let fullscreen       = require('vue-fullscreen')
 // // @ts-ignore
 let vueEventCalendar = require('vue-event-calendar')
  
+import Toasted from 'vue-toasted';
 import router           from './router/index.js' 
 
 //import store            from './store/index.js' 
@@ -34,7 +36,7 @@ Vue.use(VueI18n)
 Vue.use(VueCookie) 
 Vue.use(fullscreen)
 Vue.use(vueEventCalendar, {locale: 'pt-br'}) 
-
+Vue.use(Toasted)
 Vue.use(VueRouter)
 Vue.router = router
 

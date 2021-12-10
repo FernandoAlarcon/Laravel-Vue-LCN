@@ -235,6 +235,8 @@
 
     import axios from 'axios';
     import swal from 'sweetalert';
+    import Toasted from 'vue-toasted';
+
     export default {
         name: 'Categorias',
         mounted() {
@@ -317,25 +319,37 @@
 				}
             },
             CrearData: function(){
-                var URL_BASE    = this.Ruta; 
-                console.log(URL_BASE);
-                axios.post(URL_BASE, this.NuevaData ).then(response => {
-                     
-                        this.getData(this.pagination.current_page);
-						this.NuevaData.id = ''; 
-                        this.NuevaData.nombrecategorias = '';
-                        this.NuevaData.tipocategoria    = '';
-                        this.NuevaData.estadocategoria  = '';
+
+                if (     
+                        this.NuevaData.nombrecategorias == '' ||
+                        this.NuevaData.tipocategoria    == '' ||
+                        this.NuevaData.estadocategoria  == '' 
+                    )
+                {
+                    this.$toasted.error('Debes llenar todos los campos')
+                }else{
+
+                    var URL_BASE    = this.Ruta; 
+                    console.log(URL_BASE);
+                    axios.post(URL_BASE, this.NuevaData ).then(response => {
                          
-						this.errors=[];
-                        this.showModal = !this.showModal; 
-                        swal("Informacion agregada", {
-                            icon: "success",
-                        }); 
-                        
-				}).catch(error => {
-					this.errors = error.response.data
-				});
+                            this.getData(this.pagination.current_page);
+                            this.NuevaData.id = ''; 
+                            this.NuevaData.nombrecategorias = '';
+                            this.NuevaData.tipocategoria    = '';
+                            this.NuevaData.estadocategoria  = '';
+                             
+                            this.errors=[];
+                            this.showModal = !this.showModal; 
+                            swal("Informacion agregada", {
+                                icon: "success",
+                            }); 
+                            
+                    }).catch(error => {
+                        this.errors = error.response.data
+                    });
+                }/// final else
+
             },
             DeleteData: function(Data){
                 var URL_BASE = this.Ruta + '/';

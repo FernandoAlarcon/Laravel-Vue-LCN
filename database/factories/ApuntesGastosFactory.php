@@ -25,8 +25,8 @@ class ApuntesGastosFactory extends Factory
     {  
         return [
             'fecha'             => $this->faker->dateTime(),
-            'categoriaGasto'    => CategoriasGastos::all()->random()->id,
-            'subcategoriaGasto' => SubCategoriasGastos::all()->random()->id,
+            'categoriagasto'    => CategoriasGastos::all()->random()->id,
+            'subcategoriagasto' => SubCategoriasGastos::all()->random()->id,
             'importe'           => $this->faker->randomNumber(),            
             'concepto'          => $this->faker->name
             ]; 

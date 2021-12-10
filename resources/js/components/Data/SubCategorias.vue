@@ -295,23 +295,35 @@
 				}
             },
             CrearData: function(){
-                var URL_BASE    = this.Ruta;  
-                axios.post(URL_BASE, this.NuevaData ).then(response => {
-                     
-                        this.getData(this.pagination.current_page);
-						this.NuevaData.id = ''; 
-                        this.NuevaData.nombresubcategorias = '';
-                        this.NuevaData.tipogastomensual    = ''; 
+
+                 if (     
+                        this.NuevaData.nombresubcategorias == '' ||
+                        this.NuevaData.tipogastomensual    == '' 
+                    )
+                {
+                    this.$toasted.error('Debes llenar todos los campos')
+                }else{
+
+                    var URL_BASE    = this.Ruta;  
+                    axios.post(URL_BASE, this.NuevaData ).then(response => {
                          
-						this.errors=[];
-                        this.showModal = !this.showModal; 
-                        swal("Informacion agregada", {
-                            icon: "success",
-                        }); 
-                        
-				}).catch(error => {
-					this.errors = error.response.data
-				});
+                            this.getData(this.pagination.current_page);
+                            this.NuevaData.id = ''; 
+                            this.NuevaData.nombresubcategorias = '';
+                            this.NuevaData.tipogastomensual    = ''; 
+                             
+                            this.errors=[];
+                            this.showModal = !this.showModal; 
+                            swal("Informacion agregada", {
+                                icon: "success",
+                            }); 
+                            
+                    }).catch(error => {
+                        this.errors = error.response.data
+                    });
+
+                }/// finis else
+
             },
             DeleteData: function(Data){
                 var URL_BASE = this.Ruta;

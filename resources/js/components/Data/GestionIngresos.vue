@@ -316,27 +316,41 @@
 				}
             },
             CrearData: function(){
-                var URL_BASE    = this.Ruta;
-                console.log('Data '+ this.NuevaData.nombre_tipo_entradas); 
-                axios.post(URL_BASE, this.NuevaData ).then(response => {
-                     
-                        this.getData(this.pagination.current_page);
-						this.NuevaData.id = ''; 
-                        this.NuevaData.nombre_tipo_entradas = '';
-                        this.NuevaData.tipo_ingreso         = '';
-                        this.NuevaData.estado               = '';
+
+                 if (     
+                        this.NuevaData.nombre_tipo_entradas == '' ||
+                        this.NuevaData.tipo_ingreso         == '' ||
+                        this.NuevaData.estado               == '' 
+                    )
+                {
+                    this.$toasted.error('Debes llenar todos los campos')
+                }else{
+
+                    var URL_BASE    = this.Ruta;
+                    console.log('Data '+ this.NuevaData.nombre_tipo_entradas); 
+                    axios.post(URL_BASE, this.NuevaData ).then(response => {
                          
-						this.errors=[];
-                        this.showModal = !this.showModal; 
-                        swal("Informacion agregada", {
-                            icon: "success",
-                        }); 
-                        
-				}).catch(error => {
-					this.errors = error.response.data
-				});
+                            this.getData(this.pagination.current_page);
+                            this.NuevaData.id = ''; 
+                            this.NuevaData.nombre_tipo_entradas = '';
+                            this.NuevaData.tipo_ingreso         = '';
+                            this.NuevaData.estado               = '';
+                             
+                            this.errors=[];
+                            this.showModal = !this.showModal; 
+                            swal("Informacion agregada", {
+                                icon: "success",
+                            }); 
+                            
+                    }).catch(error => {
+                        this.errors = error.response.data
+                    });
+
+                }/// finish else
             },
             DeleteData: function(Data){
+
+                
                 var URL_BASE = this.Ruta;
                 swal({
                 title: "Estas seguro ?",
