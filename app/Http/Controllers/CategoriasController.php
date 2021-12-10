@@ -10,19 +10,27 @@ class CategoriasController extends Controller
 { 
     public function index(Request $request)
     {   
-         
-        if ($request) {
-            $query      = trim($request->get('DataSend'));
-            $categorias = CategoriasGastos::GetFindData($query)->paginate(5);
+        
+        $mood     = $request->input('mood');
+        $cantidad = $request->input('cantidad');
+        $query    = trim($request->get('DataSend'));
 
-            if($query == 'All'){
-                $categorias = CategoriasGastos::get();
-                return [
-                    'categorias' => $categorias
-                ];
-            }
+        if(!isset($cantidad)){
+            $cantidad = 15;
+        }
+
+
+        if ($query != '') {
+            $categorias = CategoriasGastos::GetFindData($query)->paginate($cantidad);
+
+           
+        }elseif ($mood == 1) {
+         
+            $categorias = CategoriasGastos::all();
+            return [ 'categorias' => $categorias  ];
+            
         }else{
-            $categorias = CategoriasGastos::orderBy('id', 'DESC')->paginate(5);
+            $categorias = CategoriasGastos::orderBy('id', 'DESC')->paginate($cantidad);
         }
         return [
             'pagination' => [

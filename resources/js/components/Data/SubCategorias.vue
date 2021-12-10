@@ -1,68 +1,33 @@
 <template>
-    <div class="container"> 
-        <div class="row justify-content-center"> 
-            <div class="flex flex-col">
-                <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
-                    <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
-                        <div class="mt-1 relative rounded-md shadow-sm">
-                            <div class="mb-4">
-                                <div class="grid grid-cols-6 gap-4">
-                                    <div class="col-start-1 col-end-7 ...">
-                                        <center><br>
-                                            <h1 class="text-xl font-medium text-black" >
-                                               SubCategorias
-                                            </h1>
-                                        </center>
-                                    </div>
-                                </div>
-                                <div class="flex mb-4">
-                                    <div class="w-1/2 bg-white-400 h-12">
-                                        <center><br>
-                                            <label class="block text-gray-700 text-sm font-bold mb-2" for="username">
-                                                Info Busqueda
-                                            </label>
-                                        </center>
-                                    </div>
-                                    <div class="w-3/4 bg-white-400 h-12"><br>
-                                        <center>
-                                            <button class=" bg-yellow-500 
-                                                        hover:bg-yellow-700 
-                                                        text-white 
-                                                        font-bold 
-                                                        h-10 w-10 flex items-center justify-center
-                                                        border-yellow-700 
-                                                        rounded-full
-                                                        "
-                                                        v-on:click="AbrirModalCrear()"
-                                                        title="Nuevo registro">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-bookmark-plus" viewBox="0 0 16 16">
-                                                    <path fill-rule="evenodd" d="M8 4a.5.5 0 0 1 .5.5V6H10a.5.5 0 0 1 0 1H8.5v1.5a.5.5 0 0 1-1 0V7H6a.5.5 0 0 1 0-1h1.5V4.5A.5.5 0 0 1 8 4z"/>
-                                                    <path d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.777.416L8 13.101l-5.223 2.815A.5.5 0 0 1 2 15.5V2zm2-1a1 1 0 0 0-1 1v12.566l4.723-2.482a.5.5 0 0 1 .554 0L13 14.566V2a1 1 0 0 0-1-1H4z"/>
-                                                </svg>
-                                            </button> 
-                                        </center>
-                                    </div>
-                                </div>
-                                <div class="flex mb-4">
-                                    <div class="w-full bg-white-500 h-12"> 
-                                            <center>
-                                                <div class="w-1/2 bg-white-500 h-12">
-                                                        <input 
-                                                        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" 
-                                                        type="text"
-                                                        id="Data" 
-                                                        placeholder="Mejora tu Busqueda"
-                                                        v-model="DataSend"
-                                                        v-on:keyup="getData()" />
-                                                </div>
-                                            </center> 
-                                    </div>
-                                </div>
-                            </div>            
+    <div>
+        <div>
+            <div>                                 
+                    <div class="grid grid-cols-6 gap-4">
+                        <div class="col-start-1 col-end-7 ...">
+                            <center><br>
+                                 <h1 class="text-xl font-medium text-black" >
+                                   SubCategorias
+                                </h1><br><br>
+                            </center>
                         </div>
+                    </div>  
+                          
+
+                    <div class="search hidden sm:block">
+                            <input  type="text" 
+                                    class="search__input form-control border-transparent placeholder-theme-13" 
+                                    id="Data" 
+                                    placeholder="Mejora tu Busqueda"
+                                    v-model="DataSend"
+                                    v-on:keyup="getData()"
+                                    />
+                            
+                            <i data-feather="search" class="search__icon dark:text-gray-300"></i> 
+                           
                     </div>
+
                     <div>
-                        <table class="min-w-full divide-y divide-gray-200">
+                        <table class="table table-report sm:mt-2">
                             <thead class="bg-gray-50">
                                 <tr>
                                     <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
@@ -78,6 +43,23 @@
                                        <center>
                                             ACCIONES
                                        </center>
+                                    </th>
+                                    <th>
+                                        <button class=" bg-yellow-500 
+                                                        hover:bg-yellow-700 
+                                                        text-white 
+                                                        font-bold 
+                                                        h-10 w-10 flex items-center justify-center
+                                                        border-yellow-700 
+                                                        rounded-full
+                                                        "
+                                                        v-on:click="AbrirModalCrear()"
+                                                        title="Nuevo registro">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-bookmark-plus" viewBox="0 0 16 16">
+                                                    <path fill-rule="evenodd" d="M8 4a.5.5 0 0 1 .5.5V6H10a.5.5 0 0 1 0 1H8.5v1.5a.5.5 0 0 1-1 0V7H6a.5.5 0 0 1 0-1h1.5V4.5A.5.5 0 0 1 8 4z"/>
+                                                    <path d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.777.416L8 13.101l-5.223 2.815A.5.5 0 0 1 2 15.5V2zm2-1a1 1 0 0 0-1 1v12.566l4.723-2.482a.5.5 0 0 1 .554 0L13 14.566V2a1 1 0 0 0-1-1H4z"/>
+                                                </svg>
+                                        </button> 
                                     </th>
                                 </tr>
                             </thead>
@@ -136,8 +118,8 @@
                             </div>                        
                         </div>
                     </div>
-                </div>
-            </div>
+
+            </div>            
         </div>
 
         <!--MODAL DATA-->

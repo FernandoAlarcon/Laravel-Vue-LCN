@@ -1,68 +1,33 @@
 <template>
-    <div class="container"> 
-        <div class="row justify-content-center"> 
-            <div class="flex flex-col">
-                <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
-                    <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
-                        <div class="mt-1 relative rounded-md shadow-sm">
-                            <div class="mb-4">
-                                <div class="grid grid-cols-6 gap-4">
-                                    <div class="col-start-1 col-end-7 ...">
-                                        <center><br>
-                                            <h1 class="text-xl font-medium text-black" >
-                                               Apuntes Gastos
-                                            </h1>
-                                        </center>
-                                    </div>
-                                </div>
-                                <div class="flex mb-4">
-                                    <div class="w-1/2 bg-white-400 h-12">
-                                        <center><br>
-                                            <label class="block text-gray-700 text-sm font-bold mb-2" for="username">
-                                                Info Busqueda
-                                            </label>
-                                        </center>
-                                    </div>
-                                    <div class="w-3/4 bg-white-400 h-12"><br>
-                                        <center>
-                                            <button class=" bg-yellow-500 
-                                                        hover:bg-yellow-700 
-                                                        text-white 
-                                                        font-bold 
-                                                        h-10 w-10 flex items-center justify-center
-                                                        border-yellow-700 
-                                                        rounded-full
-                                                        "
-                                                        v-on:click="AbrirModalCrear()"
-                                                        title="Nuevo registro">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-bookmark-plus" viewBox="0 0 16 16">
-                                                    <path fill-rule="evenodd" d="M8 4a.5.5 0 0 1 .5.5V6H10a.5.5 0 0 1 0 1H8.5v1.5a.5.5 0 0 1-1 0V7H6a.5.5 0 0 1 0-1h1.5V4.5A.5.5 0 0 1 8 4z"/>
-                                                    <path d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.777.416L8 13.101l-5.223 2.815A.5.5 0 0 1 2 15.5V2zm2-1a1 1 0 0 0-1 1v12.566l4.723-2.482a.5.5 0 0 1 .554 0L13 14.566V2a1 1 0 0 0-1-1H4z"/>
-                                                </svg>
-                                            </button> 
-                                        </center>
-                                    </div>
-                                </div>
-                                <div class="flex mb-4">
-                                    <div class="w-full bg-white-500 h-12"> 
-                                            <center>
-                                                <div class="w-1/2 bg-white-500 h-12">
-                                                        <input 
-                                                        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" 
-                                                        type="text"
-                                                        id="Data" 
-                                                        placeholder="Mejora tu Busqueda"
-                                                        v-model="DataSend"
-                                                        v-on:keyup="getData()" />
-                                                </div>
-                                            </center> 
-                                    </div>
-                                </div>
-                            </div>            
+    <div>
+        <div>
+            <div>
+
+                   <div class="grid grid-cols-6 gap-4">
+                        <div class="col-start-1 col-end-7 ...">
+                            <center><br>
+                                <h1 class="text-xl font-medium text-black" >
+                                    Apuntes Gastos
+                                </h1>
+                            </center>
                         </div>
                     </div>
+                     
+
+                    <div class="search hidden sm:block">
+                                <input  type="text" 
+                                        class="search__input form-control border-transparent placeholder-theme-13" 
+                                        id="Data" 
+                                        placeholder="Mejora tu Busqueda"
+                                        v-model="DataSend"
+                                        v-on:keyup="getData()" />
+                                
+                                <i data-feather="search" class="search__icon dark:text-gray-300"></i> 
+                            
+                    </div>
+
                     <div>
-                        <table class="min-w-full divide-y divide-gray-200">
+                        <table class="table table-report sm:mt-2">
                             <thead class="bg-gray-50">
                                 <tr>
                                     <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
@@ -83,24 +48,42 @@
                                     <th scope="col" class="relative px-6 py-3">
                                         ACCIONES
                                     </th>
+                                    <th>
+                                        <button class=" bg-yellow-500 
+                                                        hover:bg-yellow-700 
+                                                        text-white 
+                                                        font-bold 
+                                                        h-10 w-10 flex items-center justify-center
+                                                        border-yellow-700 
+                                                        rounded-full
+                                                        "
+                                                        v-on:click="AbrirModalCrear()"
+                                                        title="Nuevo registro">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-bookmark-plus" viewBox="0 0 16 16">
+                                                    <path fill-rule="evenodd" d="M8 4a.5.5 0 0 1 .5.5V6H10a.5.5 0 0 1 0 1H8.5v1.5a.5.5 0 0 1-1 0V7H6a.5.5 0 0 1 0-1h1.5V4.5A.5.5 0 0 1 8 4z"/>
+                                                    <path d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.777.416L8 13.101l-5.223 2.815A.5.5 0 0 1 2 15.5V2zm2-1a1 1 0 0 0-1 1v12.566l4.723-2.482a.5.5 0 0 1 .554 0L13 14.566V2a1 1 0 0 0-1-1H4z"/>
+                                                </svg>
+                                        </button> 
+                                    </th>
                                 </tr>
                             </thead>
                             <tbody class="bg-white divide-y divide-gray-200">
+
                                 <tr v-for="( Apunte, index ) of Apuntes" :key="index" >
                                     <td class="px-6 py-4 whitespace-nowrap">
-                                        {{Apunte.categoria_gasto.NombreCategorias}}
+                                        {{Apunte.NombreCategorias}}
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap">
-                                        {{Apunte.subcategoria_gasto.NombreSubcategorias}}
+                                        {{Apunte.NombreSubcategorias}}
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap">
-                                        {{Apunte.Importe}}
+                                        {{Apunte.importe}}
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap">
-                                        {{Apunte.Concepto}}
+                                        {{Apunte.concepto}}
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap">
-                                        {{Apunte.Fecha}}
+                                        {{Apunte.fecha}}
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium"> 
                                         <button 
@@ -146,10 +129,10 @@
                             </div>                        
                         </div>
                     </div>
-                </div>
-            </div>
+          
+           
+            </div>            
         </div>
-
         <!--MODAL DATA-->
         <div> 
             <div v-if="showModal" 
@@ -157,122 +140,128 @@
                 <div class="relative w-auto my-6 mx-auto max-w-6xl">
                     <!--content-->
                     <div class="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
-                    <!--header-->
-                    <div class="flex items-start justify-between p-5 border-b border-solid border-gray-300 rounded-t">
-                        <p class="text-2xl font-semibold">
-                            {{ActionType}}
-                        </p>
-                        <button class="p-1 ml-auto bg-transparent border-0 text-black opacity-5 float-right text-3xl leading-none font-semibold outline-none focus:outline-none" v-on:click="toggleModal()">
-                        <span class="bg-transparent text-black opacity-5 h-6 w-6 text-2xl block outline-none focus:outline-none">
-                            ×
-                        </span>
-                        </button>
-                    </div>
-                    <!--body-->
-                    <div class="relative p-6 flex-auto">
-                        <form class="w-full max-w-lg">
-                            
-                            <div class="flex flex-wrap -mx-3 mb-2"> 
-                                <div class="w-full md:w-1/2 px-4 mb-6 md:mb-0">
-                                    <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-state">
-                                        Categoria
-                                    </label>
-                                    <div class="relative">
-                                        
-                                         
-                                        <select class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" 
-                                                id="grid-state" 
-                                                required
-                                                v-model="NuevaData.CategoriaGasto">
-                                            <option v-for="( Categoria, index ) in Categorias" :key="index"
-                                                    :value="Categoria.id" > {{Categoria.NombreCategorias}} 
-                                            </option>   
-                                        </select>
-                                        <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
-                                        <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="w-full md:w-1/2 px-4 mb-6 md:mb-0">
-                                     <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-state">
-                                        SubCategoria
-                                    </label>
-                                    <div class="relative">
-                                        
-                                         
-                                        <select class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" 
-                                                id="grid-state" 
-                                                required
-                                                v-model="NuevaData.SubcategoriaGasto">
-                                            <option v-for="( SubCategoria, index ) in SubCategorias" :key="index"
-                                                    :value="SubCategoria.id" > {{SubCategoria.NombreSubcategorias}} 
-                                            </option>   
-                                        </select>
-                                        <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
-                                        <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="flex flex-wrap -mx-3 mb-6">
-                                <div class="w-full px-3">
-                                    <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-first-name">
-                                        Concepto
-                                    </label>
-                                    <input  class="appearance-none block w-full bg-gray-200 text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
-                                            id="grid-first-name"
-                                            type="text"
-                                            placeholder="Concepto" 
-                                            v-model="NuevaData.Concepto"
-                                            required
-                                            /> 
-                                </div>
-                            </div> 
-                            <div class="flex flex-wrap -mx-3 mb-6">
-                                <div class="w-full px-3">
-                                    <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-first-name">
-                                        Importe
-                                    </label>
-                                    <input  class="appearance-none block w-full bg-gray-200 text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
-                                            id="grid-first-name"
-                                            type="number"
-                                            placeholder="Importe" 
-                                            v-model="NuevaData.Importe"
-                                            required
-                                            /> 
-                                </div>
-                            </div> 
-                        </form> 
-                    </div>
-                    <!--footer-->
-                    <div class="flex items-center justify-end p-6 border-t border-solid border-gray-300 rounded-b">
-                         
-                        <button class=" text-orange-500 bg-transparent border border-solid border-orange-500 hover:bg-orange-500 hover:text-white active:bg-red-600 font-bold uppercase text-sm px-6 py-3 rounded outline-none focus:outline-none mr-1 mb-1" 
-                                type="submit"
-                                style="transition: all .15s ease" 
-                                v-if="ButtonUpdate"
-                                v-on:click="UpdateData()">
-
-                          Actualizar
-                        </button> 
-                         <button class=" text-green-500 bg-transparent border border-solid border-green-500 hover:bg-green-500 hover:text-white active:bg-red-600 font-bold uppercase text-sm px-6 py-3 rounded outline-none focus:outline-none mr-1 mb-1" 
-                                type="submit"
-                                style="transition: all .15s ease" 
-                                v-if="ButtonNew"
-                                v-on:click="CrearData()">
-
-                          Nuevo Registro
-                        </button> 
-                        <button class="text-red-500 bg-transparent border border-solid border-red-500 hover:bg-red-500 hover:text-white active:bg-red-600 font-bold uppercase text-sm px-6 py-3 rounded outline-none focus:outline-none mr-1 mb-1" type="button" style="transition: all .15s ease" v-on:click="toggleModal()">
-                          Cerrar
-                        </button>
                         
+                        <!--header-->
+                        <div class="flex items-start justify-between p-5 border-b border-solid border-gray-300 rounded-t">
+                            <p class="text-2xl font-semibold">
+                                {{ActionType}}
+                            </p>
+                            <button class="p-1 ml-auto bg-transparent border-0 text-black opacity-5 float-right text-3xl leading-none font-semibold outline-none focus:outline-none" v-on:click="toggleModal()">
+                            <span class="bg-transparent text-black opacity-5 h-6 w-6 text-2xl block outline-none focus:outline-none">
+                                ×
+                            </span>
+                            </button>
+                        </div>
+
+                        <!--body-->
+                        <div class="relative p-6 flex-auto">
+                            <form class="w-full max-w-lg">
+                                
+                                <div class="flex flex-wrap -mx-3 mb-2"> 
+                                    <div class="w-full md:w-1/2 px-4 mb-6 md:mb-0">
+                                        <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-state">
+                                            Categoria
+                                        </label>
+                                        <div class="relative">                                       
+                                            
+                                            <select class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" 
+                                                    id="grid-state" 
+                                                    required
+                                                    v-model="NuevaData.categoriagasto ">
+                                                <option v-for="( Categoria, index ) in Categorias" :key="index"
+                                                        :value="Categoria.id" > {{Categoria.nombrecategorias}} 
+                                                </option>   
+                                            </select>
+                                            <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                                                <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <div class="w-full md:w-1/2 px-4 mb-6 md:mb-0">
+
+                                        <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-state">
+                                            SubCategoria
+                                        </label>
+                                        <div class="relative">
+                                            
+                                            <select class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" 
+                                                    id="grid-state" 
+                                                    required
+                                                    v-model="NuevaData.subcategoriagasto  ">
+                                                <option v-for="( SubCategoria, index ) in SubCategorias" :key="index"
+                                                        :value="SubCategoria.id" > {{SubCategoria.nombresubcategorias}} 
+                                                </option>   
+                                            </select>
+                                            <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                                                <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="flex flex-wrap -mx-3 mb-6">
+                                    <div class="w-full px-3">
+                                        <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-first-name">
+                                            Concepto
+                                        </label>
+                                        <input  class="appearance-none block w-full bg-gray-200 text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+                                                id="grid-first-name"
+                                                type="text"
+                                                placeholder="Concepto" 
+                                                v-model="NuevaData.concepto"
+                                                required /> 
+                                    </div>
+                                </div> 
+                                <div class="flex flex-wrap -mx-3 mb-6">
+                                    <div class="w-full px-3">
+                                        <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-first-name">
+                                            Importe
+                                        </label>
+                                        <input  class="appearance-none block w-full bg-gray-200 text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+                                                id="grid-first-name"
+                                                type="number"
+                                                placeholder="Importe" 
+                                                v-model="NuevaData.importe"
+                                                required
+                                        /> 
+                                    </div>
+                                </div> 
+
+                            </form> 
+                        </div>
+                        <!--footer-->
+                        <div class="flex items-center justify-end p-6 border-t border-solid border-gray-300 rounded-b">
+                            
+                            <button class=" text-orange-500 bg-transparent border border-solid border-orange-500 hover:bg-orange-500 hover:text-white active:bg-red-600 font-bold uppercase text-sm px-6 py-3 rounded outline-none focus:outline-none mr-1 mb-1" 
+                                    type="submit"
+                                    style="transition: all .15s ease" 
+                                    v-if="ButtonUpdate"
+                                    v-on:click="UpdateData()">
+
+                                    Actualizar
+                            </button> 
+                            <button class=" text-green-500 bg-transparent border border-solid border-green-500 hover:bg-green-500 hover:text-white active:bg-red-600 font-bold uppercase text-sm px-6 py-3 rounded outline-none focus:outline-none mr-1 mb-1" 
+                                    type="submit"
+                                    style="transition: all .15s ease" 
+                                    v-if="ButtonNew"
+                                    v-on:click="CrearData()">
+
+                                    Nuevo Registro
+                            </button> 
+                            <button class="text-red-500 bg-transparent border border-solid border-red-500 hover:bg-red-500 hover:text-white active:bg-red-600 font-bold uppercase text-sm px-6 py-3 rounded outline-none focus:outline-none mr-1 mb-1" type="button" style="transition: all .15s ease" v-on:click="toggleModal()">
+                                    Cerrar
+                            </button>
+                            
+                        </div>
+ 
                     </div>
-                    </div>
+                    <!--end content-->
                 </div>
             </div>
             <div v-if="showModal" class="opacity-25 fixed inset-0 z-40 bg-black"></div>
         </div>
+
     </div>
     
 </template>
@@ -309,10 +298,10 @@
                                 },
                         NuevaData  : {
                                 'id'   : '',
-                                'CategoriaGasto'    : '',
-                                'SubcategoriaGasto' : '', 
-                                'Concepto'          : '', 
-                                'Importe'           : ''
+                                'categoriagasto'    : '',
+                                'subcategoriagasto' : '', 
+                                'concepto'          : '', 
+                                'importe'           : ''
                             },
                         Apuntes       : [],
                         Categorias    : [],
@@ -322,7 +311,7 @@
                         SendData      : 'CrearData',
                         ActionType    : 'Nueva Info',
                         ButtonNew     : true,
-                        Ruta          : '/api/apuntesgastos/',
+                        Ruta          : '/api/apuntesgastos',
                         ButtonUpdate  : false
                 }
         },
@@ -360,34 +349,27 @@
             },
             getCategorias: function(){
                 
-                var URL_BASE =  '/api/categorias';
+                var URL_BASE =  '/api/categorias?mood=1';
 
-                axios.get(URL_BASE,{params: {DataSend: 'All'}}).then(response=>{
+                axios.get(URL_BASE).then(response=>{
                         this.Categorias = response.data.categorias 
 				});
             },
             getSubCategorias: function(){
                 
-                var URL_BASE =  '/api/subcategorias';
+                var URL_BASE =  '/api/subcategorias?mood=1';
 
-                axios.get(URL_BASE,{params: {DataSend: 'All'}}).then(response=>{
+                axios.get(URL_BASE).then(response=>{
 						this.SubCategorias = response.data.subcategorias
 				});
             },
             getData: function(page){
 
-                var URL_BASE =  this.Ruta + '?page=' + page;
-                if (this.DataSend != '') {
-					axios.get(URL_BASE,{params: {DataSend: this.DataSend}}).then(response=>{
-						this.Apuntes = response.data.apuntes.data,
-						this.pagination = response.data.pagination
-					});
-				}else{                     
-					axios.get(URL_BASE).then(response=>{
-						this.Apuntes = response.data.apuntes.data,
-						this.pagination = response.data.pagination
-					});
-				}
+                var URL_BASE =  this.Ruta + '?page=' + page + '&data=' + this.DataSend + '&mood=1';
+                axios.get(URL_BASE).then(response=>{
+					this.Apuntes    = response.data.apuntes.data,
+					this.pagination = response.data.pagination
+				});
             },
             CrearData: function(){
                 var URL_BASE    = this.Ruta; 
@@ -395,10 +377,10 @@
                      
                         this.getData(this.pagination.current_page);
 						this.NuevaData.id = ''; 
-                        this.NuevaData.CategoriaGasto    = '';
-                        this.NuevaData.SubcategoriaGasto = '';
-                        this.NuevaData.Importe           = '';
-                        this.NuevaData.Concepto          = '';
+                        this.NuevaData.categoriagasto     = '';
+                        this.NuevaData.subcategoriagasto   = '';
+                        this.NuevaData.importe           = '';
+                        this.NuevaData.concepto          = '';
                          
 						this.errors=[];
                         this.showModal = !this.showModal; 
@@ -411,10 +393,10 @@
 				});
             },
             DeleteData: function(Data){
-                var URL_BASE = this.Ruta;
+                var URL_BASE = this.Ruta + '/';
                 swal({
                 title: "Estas seguro ?",
-                text: "Vas a eliminar al dato con concepto " + Data.Concepto + ", perderas este registro",
+                text: "Vas a eliminar al dato con concepto " + Data.concepto + ", perderas este registro",
                 icon: "warning",
                 buttons: true,
                 dangerMode: true,
@@ -422,9 +404,9 @@
                 .then((willDelete) => {
                 if (willDelete) {
                     let IdData = Data.id;
-                        axios.delete(URL_BASE + IdData).then(response=>{
+                        axios.delete(URL_BASE + IdData).then( response =>{
                         this.getData();
-                        swal("Eliminaste la Categoria " + Data.Concepto + " de la base de datos", {
+                        swal("Eliminaste la Categoria " + Data.concepto + " de la base de datos", {
                             icon: "success",
                         }); 
                     }).catch(error=>{
@@ -438,10 +420,10 @@
             },
             UpdateData: function(){
                 
-                var URL_BASE = this.Ruta + this.NuevaData.id;
+               var URL_BASE = this.Ruta + '/' + this.NuevaData.id;
                 swal({
                 title: "Estas seguro de actualizar ?",
-                text: "Vas a actualizar el dato por concepto de " + this.NuevaData.Concepto + ", cambiaras este registro",
+                text: "Vas a actualizar el dato por concepto de " + this.NuevaData.concepto + ", cambiaras este registro",
                 icon: "warning",
                 buttons: true,
                 dangerMode: true,
@@ -453,13 +435,13 @@
                         
                         this.getData(this.pagination.current_page);
 						this.NuevaData.id = ''; 
-                        this.NuevaData.CategoriaGasto    = '';
-                        this.NuevaData.SubcategoriaGasto = '';
-                        this.NuevaData.Importe           = '';
-                        this.NuevaData.Concepto          = '';
+                        this.NuevaData.categoriagasto    = '';
+                        this.NuevaData.subcategoriagasto = '';
+                        this.NuevaData.importe           = '';
+                        this.NuevaData.concepto          = '';
                         this.showModal                   = !this.showModal;
   
-                        swal("Actualizaste la Categoria " + Data.CategoriaGasto + " de la base de datos", {
+                        swal("Actualizaste la Categoria " + Data.categoriagasto  + " de la base de datos", {
                             icon: "success",
                         }); 
 
@@ -476,26 +458,33 @@
             toggleModal: function(){
                 this.showModal = !this.showModal;
             },
+
             AbrirModalCrear: function(){
+
                 this.showModal     = !this.showModal;
                 this.ButtonNew     = true;
                 this.ButtonUpdate  = false;
-                this.ActionType    = 'Nueva Info';
-                this.NuevaData.CategoriaGasto    = '';
-                this.NuevaData.SubcategoriaGasto = '';
-                this.NuevaData.Importe           = '';
-                this.NuevaData.Concepto          = '';
+                this.ActionType    = 'Agregar Informacion';
+                this.NuevaData.id                 = ''; 
+                this.NuevaData.categoriagasto     = '';
+                this.NuevaData.subcategoriagasto  = '';
+                this.NuevaData.importe            = '';
+                this.NuevaData.concepto           = '';
+
             },
+
             AbrirModalUpdate: function(UpdateData){
+
                 this.ButtonNew                   = false;
                 this.ButtonUpdate                = true;
                 this.showModal                   = !this.showModal;
-                this.ActionType                  = 'Actualizar Info';
+                this.ActionType                  = 'Actualizar Informacion';
                 this.NuevaData.id                = UpdateData.id; 
-                this.NuevaData.CategoriaGasto    = UpdateData.CategoriaGasto;
-                this.NuevaData.SubcategoriaGasto = UpdateData.SubcategoriaGasto;
-                this.NuevaData.Importe           = UpdateData.Importe;
-                this.NuevaData.Concepto          = UpdateData.Concepto;
+                this.NuevaData.categoriagasto    = UpdateData.categoriagasto;
+                this.NuevaData.subcategoriagasto = UpdateData.subcategoriagasto;
+                this.NuevaData.importe           = UpdateData.importe;
+                this.NuevaData.concepto          = UpdateData.concepto;
+
             }
         },
 

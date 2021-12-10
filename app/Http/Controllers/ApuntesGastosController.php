@@ -14,67 +14,30 @@ class ApuntesGastosController extends Controller
 {
     public function index(Request $request)
     {   
-        $query         = trim($request->get('DataSend'));
-        if ($query != '') {
-            
-            if($query == 'ALL-DATA'){
-
-                // $ApuntesGastos = ApuntesGastos::select('*', 
-                //         DB::raw("DATE_FORMAT(fecha,'%Y') as fecha_year"),
-                //         DB::raw("DATE_FORMAT(fecha,'%M') as mes_year"))
-                //     ->orderBy('fecha_year', 'DESC')
-                //     ->get()
-                //     ->groupBy('fecha_year');    
-                
-                $Categorias = ApuntesGastos::select('*')
-                    ->orderBy('categoriagasto', 'DESC')
-                    ->get()
-                    ->keyBy('categoriagasto', 'DESC');
-
-                    
-                $ApuntesGastos = ApuntesGastos::select('*', 
-                        DB::raw("DATE_FORMAT(fecha,'%Y') as fecha_year"),
-                        DB::raw("DATE_FORMAT(fecha,'%M') as mes_year"))
-                        ->get()
-                        ->keyBy('fecha_year', 'DESC');
-
-
-                    // , 
-                    // DB::raw("DATE_FORMAT(fecha,'%Y') as fecha_year"),
-                    // DB::raw("DATE_FORMAT(fecha,'%M') as mes_year"),
-                    // DB::raw("categoriagasto as Categorias ")
-                    
-
-                $Years = ApuntesGastos::select('id','fecha', DB::raw("DATE_FORMAT(fecha,'%Y') as fecha_year"))
-                    ->orderBy('fecha_year', 'DESC')                
-                    ->distinct()  
-                    ->get()
-                    ->keyBy('fecha_year'); 
-
-                return [
-                    'Categorias' => $Categorias,
-                    'apuntes' => $ApuntesGastos,
-                    'edades'  => $Years
-
-                ];
-            }else{
-                $ApuntesGastos = ApuntesGastos::GetFindData($request)->paginate(5);
-            }
-        }else{
-            $ApuntesGastos = ApuntesGastos::orderBy('fecha', 'DESC')->paginate(5);            
-        } 
+        $mood     = $request->input('mood');
+        $cantidad = $request->input('cantidad');
+        if(!isset($cantidad)){
+            $cantidad = 15;
+        }
         
-        return [
-            'pagination' => [
-                'total'         => $ApuntesGastos->total(),
-                'current_page'  => $ApuntesGastos->currentPage(),
-                'per_page'      => $ApuntesGastos->perPage(),
-                'last_page'     => $ApuntesGastos->lastPage(),
-                'from'          => $ApuntesGastos->firstItem(),
-                'to'            => $ApuntesGastos->lastItem(),
-            ],
-            'apuntes' => $ApuntesGastos 
-        ];
+        if ( $mood == '1' ) {
+            
+            $data         = trim($request->get('data'));
+            $ApuntesGastos = ApuntesGastos::GetDataUnion($data)->paginate($cantidad);                     
+            
+            return [
+                'pagination' => [
+                    'total'         => $ApuntesGastos->total(),
+                    'current_page'  => $ApuntesGastos->currentPage(),
+                    'per_page'      => $ApuntesGastos->perPage(),
+                    'last_page'     => $ApuntesGastos->lastPage(),
+                    'from'          => $ApuntesGastos->firstItem(),
+                    'to'            => $ApuntesGastos->lastItem(),
+                ],
+                'apuntes' => $ApuntesGastos 
+            ];
+        }
+        
 
             
         
@@ -82,19 +45,19 @@ class ApuntesGastosController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'CategoriaGasto'    => 'required',
-            'SubcategoriaGasto' => 'required',
-            'Importe'           => 'required',
-            'Concepto'          => 'required'
+            'categoriagasto'    => 'required',
+            'subcategoriagasto' => 'required',
+            'importe'           => 'required',
+            'concepto'          => 'required'
         ]);
  
-        $Fecha      = date("Y-m-d  h:i:s");
+        $fecha      = date("Y-m-d  h:i:s");
         $ApuntesGastos = new ApuntesGastos();
-        $ApuntesGastos->CategoriaGasto    = $request->input('CategoriaGasto');
-        $ApuntesGastos->SubcategoriaGasto = $request->input('SubcategoriaGasto');
-        $ApuntesGastos->Importe           = $request->input('Importe');
-        $ApuntesGastos->Concepto          = $request->input('Concepto');
-        $ApuntesGastos->Fecha             = $Fecha;
+        $ApuntesGastos->categoriagasto    = $request->input('categoriagasto');
+        $ApuntesGastos->subcategoriagasto = $request->input('subcategoriagasto');
+        $ApuntesGastos->importe           = $request->input('importe');
+        $ApuntesGastos->concepto          = $request->input('concepto');
+        $ApuntesGastos->fecha             = $fecha;
         $ApuntesGastos->save();
 
         if($ApuntesGastos){
@@ -111,10 +74,10 @@ class ApuntesGastosController extends Controller
     public function update(Request $request, $id)
     {
         $ApuntesGastos = ApuntesGastos::find($id);
-        $ApuntesGastos->CategoriaGasto    = $request->input('CategoriaGasto');
-        $ApuntesGastos->SubcategoriaGasto = $request->input('SubcategoriaGasto');
-        $ApuntesGastos->Importe           = $request->input('Importe');
-        $ApuntesGastos->Concepto          = $request->input('Concepto');
+        $ApuntesGastos->categoriagasto    = $request->input('categoriagasto');
+        $ApuntesGastos->subcategoriagasto = $request->input('subcategoriagasto');
+        $ApuntesGastos->importe           = $request->input('importe');
+        $ApuntesGastos->concepto          = $request->input('concepto');
         $ApuntesGastos->save();
     }
 

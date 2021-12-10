@@ -9,10 +9,17 @@ use App\Models\GestionIngresos;
 class GestionIngresosController extends Controller
 {
     public function index(Request $request)
-    {
+    {   
+        $mood     = $request->input('mood');
+
+        $cantidad = $request->input('cantidad');
+        if(!isset($cantidad)){
+            $cantidad = 15;
+        }
+
         if ($request) {
             $query      = trim($request->get('DataSend'));
-            $GestionIngresos = GestionIngresos::GetFindData($query)->paginate(5);
+            $GestionIngresos = GestionIngresos::GetFindData($query)->paginate($cantidad);
 
             if($query == 'All'){
                 $GestionIngresos = GestionIngresos::get();
@@ -20,8 +27,13 @@ class GestionIngresosController extends Controller
                     'gestioningresos' => $GestionIngresos
                 ];
             }
+        }elseif ($mood == '1') {
+
+            $GestionIngresos = GestionIngresos::all();
+            return [  'gestioningresos' => $GestionIngresos ];
+            
         }else{
-            $GestionIngresos = GestionIngresos::orderBy('id', 'DESC')->paginate(5);
+            $GestionIngresos = GestionIngresos::orderBy('id', 'DESC')->paginate($cantidad);
         }
         return [
             'pagination' => [

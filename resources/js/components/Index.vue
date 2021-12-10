@@ -1,58 +1,10 @@
 <template>
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-12">
-                <center><br>
-                    <h1 class="text-xl font-medium text-black" >
-                        Todas mis listas
-                    </h1><br><br>
-                </center>
-            </div>
-            <div class="col-md-12" > 
-                 
-                <div class="row" >
-                     <div class="col-md-3 max-w-sm rounded overflow-y-auto h-40 shadow-lg ">
-                        <h1 class="text-xl font-medium text-black text-center " >
-                                Categorias
-                        </h1><br>
-                        <div v-for="Categoria in Categorias" >
-                            {{Categoria.NombreCategorias}}
-                            <hr/>
-                        </div>
-                    </div>
-                    <div class="col-md-3 max-w-sm rounded overflow-y-auto h-40 shadow-lg">
-                        <h1 class="text-xl font-medium text-black text-center " >
-                                SubCategorias
-                        </h1><br>
-                        <div v-for="SubCategoria in SubCategorias" >
-                            {{SubCategoria.NombreSubcategorias}}
-                            <hr/>
-                        </div>
-                    </div>
-                    <div class="col-md-3 max-w-sm rounded overflow-y-auto h-40 shadow-lg">
-                        <h1 class="text-xl font-medium text-black text-center " >
-                                Gestiones
-                        </h1><br>
-                        <div v-for="Gestion in Gestiones" >
-                            {{Gestion.Nombre_Tipo_Entradas}}
-                            <hr/>
-                        </div>
-                    </div>
-                    <div class="col-md-3 max-w-sm rounded overflow-y-auto h-40 shadow-lg">
-                        <h1 class="text-xl font-medium text-black text-center " >
-                                Apuntes (Concepto)
-                        </h1><br>
-                        <div v-for="Apunte in Apuntes" >
-                            {{Apunte.Concepto}}
-                            <hr/>
-                        </div>
-                    </div>
-                     
-                </div>
-               <br><br>
-            </div>
-        </div>
-    </div>
+    
+
+    <p>
+        Bienvenido a tu DashBoard Infinety
+    </p>
+
 </template>
 
 <script>
@@ -72,10 +24,10 @@
         },
         methods: {
             getData: function(){
-            var URL_BASE_1 =  '/categorias';
-            var URL_BASE_2 =  '/subcategorias';
-            var URL_BASE_3 =  '/apuntesgastos';
-            var URL_BASE_4 =  '/gestioningresos';
+            var URL_BASE_1 =  '/api/categorias';
+            var URL_BASE_2 =  '/api/subcategorias';
+            var URL_BASE_3 =  '/api/apuntesgastos';
+            var URL_BASE_4 =  '/api/gestioningresos';
 
             axios.get(URL_BASE_1,{params: {DataSend: 'All'}}).then(response=>{
                 this.Categorias = response.data.categorias 

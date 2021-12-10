@@ -10,19 +10,27 @@ class SubCategoriasController extends Controller
 {
      
     public function index(Request $request)
-    {
-        if ($request) {
-            $query      = trim($request->get('DataSend'));
-            $subcategorias = SubCategoriasGastos::GetFindData($query)->paginate(5);
+    {   
+        $mood     = $request->input('mood');
 
-            if($query == 'All'){
-                $subcategorias = SubCategoriasGastos::get();
-                return [
-                    'subcategorias' => $subcategorias
-                ];
-            }
-        }else{
-            $subcategorias = SubCategoriasGastos::orderBy('id', 'DESC')->paginate(5);
+        $cantidad = $request->input('cantidad');
+        $query    = trim($request->get('DataSend'));
+        
+        if(!isset($cantidad)){
+            $cantidad = 15;
+        }
+
+        if ($query != '') {
+            
+            $subcategorias = SubCategoriasGastos::GetFindData($query)->paginate($cantidad);
+            
+        }elseif ($mood == '1') {
+            $subcategorias = SubCategoriasGastos::all();
+            
+            return [ 'subcategorias' => $subcategorias  ];
+        }
+        else{
+            $subcategorias = SubCategoriasGastos::orderBy('id', 'DESC')->paginate($cantidad);
         }
         return [
             'pagination' => [

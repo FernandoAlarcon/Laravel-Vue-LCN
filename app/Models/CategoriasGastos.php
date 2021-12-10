@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class CategoriasGastos extends Model
 {
     use HasFactory;
-    protected $table = "CategoriasGastos";
+    protected $table = "categoriasgastos";
 
     public static function GetFindData($Data){
         $Categorias = CategoriasGastos::select('*')

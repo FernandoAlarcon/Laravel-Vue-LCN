@@ -287,17 +287,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 
@@ -327,10 +316,10 @@ Vue.component('multiselect', (vue_multiselect__WEBPACK_IMPORTED_MODULE_3___defau
       },
       NuevaData: {
         'id': '',
-        'CategoriaGasto': '',
-        'SubcategoriaGasto': '',
-        'Concepto': '',
-        'Importe': ''
+        'categoriagasto': '',
+        'subcategoriagasto': '',
+        'concepto': '',
+        'importe': ''
       },
       Apuntes: [],
       Categorias: [],
@@ -340,7 +329,7 @@ Vue.component('multiselect', (vue_multiselect__WEBPACK_IMPORTED_MODULE_3___defau
       SendData: 'CrearData',
       ActionType: 'Nueva Info',
       ButtonNew: true,
-      Ruta: '/api/apuntesgastos/',
+      Ruta: '/api/apuntesgastos',
       ButtonUpdate: false
     };
   },
@@ -383,45 +372,26 @@ Vue.component('multiselect', (vue_multiselect__WEBPACK_IMPORTED_MODULE_3___defau
     getCategorias: function getCategorias() {
       var _this = this;
 
-      var URL_BASE = '/api/categorias';
-      axios__WEBPACK_IMPORTED_MODULE_0___default().get(URL_BASE, {
-        params: {
-          DataSend: 'All'
-        }
-      }).then(function (response) {
+      var URL_BASE = '/api/categorias?mood=1';
+      axios__WEBPACK_IMPORTED_MODULE_0___default().get(URL_BASE).then(function (response) {
         _this.Categorias = response.data.categorias;
       });
     },
     getSubCategorias: function getSubCategorias() {
       var _this2 = this;
 
-      var URL_BASE = '/api/subcategorias';
-      axios__WEBPACK_IMPORTED_MODULE_0___default().get(URL_BASE, {
-        params: {
-          DataSend: 'All'
-        }
-      }).then(function (response) {
+      var URL_BASE = '/api/subcategorias?mood=1';
+      axios__WEBPACK_IMPORTED_MODULE_0___default().get(URL_BASE).then(function (response) {
         _this2.SubCategorias = response.data.subcategorias;
       });
     },
     getData: function getData(page) {
       var _this3 = this;
 
-      var URL_BASE = this.Ruta + '?page=' + page;
-
-      if (this.DataSend != '') {
-        axios__WEBPACK_IMPORTED_MODULE_0___default().get(URL_BASE, {
-          params: {
-            DataSend: this.DataSend
-          }
-        }).then(function (response) {
-          _this3.Apuntes = response.data.apuntes.data, _this3.pagination = response.data.pagination;
-        });
-      } else {
-        axios__WEBPACK_IMPORTED_MODULE_0___default().get(URL_BASE).then(function (response) {
-          _this3.Apuntes = response.data.apuntes.data, _this3.pagination = response.data.pagination;
-        });
-      }
+      var URL_BASE = this.Ruta + '?page=' + page + '&data=' + this.DataSend + '&mood=1';
+      axios__WEBPACK_IMPORTED_MODULE_0___default().get(URL_BASE).then(function (response) {
+        _this3.Apuntes = response.data.apuntes.data, _this3.pagination = response.data.pagination;
+      });
     },
     CrearData: function CrearData() {
       var _this4 = this;
@@ -431,10 +401,10 @@ Vue.component('multiselect', (vue_multiselect__WEBPACK_IMPORTED_MODULE_3___defau
         _this4.getData(_this4.pagination.current_page);
 
         _this4.NuevaData.id = '';
-        _this4.NuevaData.CategoriaGasto = '';
-        _this4.NuevaData.SubcategoriaGasto = '';
-        _this4.NuevaData.Importe = '';
-        _this4.NuevaData.Concepto = '';
+        _this4.NuevaData.categoriagasto = '';
+        _this4.NuevaData.subcategoriagasto = '';
+        _this4.NuevaData.importe = '';
+        _this4.NuevaData.concepto = '';
         _this4.errors = [];
         _this4.showModal = !_this4.showModal;
         sweetalert__WEBPACK_IMPORTED_MODULE_1___default()("Informacion agregada", {
@@ -447,10 +417,10 @@ Vue.component('multiselect', (vue_multiselect__WEBPACK_IMPORTED_MODULE_3___defau
     DeleteData: function DeleteData(Data) {
       var _this5 = this;
 
-      var URL_BASE = this.Ruta;
+      var URL_BASE = this.Ruta + '/';
       sweetalert__WEBPACK_IMPORTED_MODULE_1___default()({
         title: "Estas seguro ?",
-        text: "Vas a eliminar al dato con concepto " + Data.Concepto + ", perderas este registro",
+        text: "Vas a eliminar al dato con concepto " + Data.concepto + ", perderas este registro",
         icon: "warning",
         buttons: true,
         dangerMode: true
@@ -460,7 +430,7 @@ Vue.component('multiselect', (vue_multiselect__WEBPACK_IMPORTED_MODULE_3___defau
           axios__WEBPACK_IMPORTED_MODULE_0___default()["delete"](URL_BASE + IdData).then(function (response) {
             _this5.getData();
 
-            sweetalert__WEBPACK_IMPORTED_MODULE_1___default()("Eliminaste la Categoria " + Data.Concepto + " de la base de datos", {
+            sweetalert__WEBPACK_IMPORTED_MODULE_1___default()("Eliminaste la Categoria " + Data.concepto + " de la base de datos", {
               icon: "success"
             });
           })["catch"](function (error) {
@@ -473,10 +443,10 @@ Vue.component('multiselect', (vue_multiselect__WEBPACK_IMPORTED_MODULE_3___defau
     UpdateData: function UpdateData() {
       var _this6 = this;
 
-      var URL_BASE = this.Ruta + this.NuevaData.id;
+      var URL_BASE = this.Ruta + '/' + this.NuevaData.id;
       sweetalert__WEBPACK_IMPORTED_MODULE_1___default()({
         title: "Estas seguro de actualizar ?",
-        text: "Vas a actualizar el dato por concepto de " + this.NuevaData.Concepto + ", cambiaras este registro",
+        text: "Vas a actualizar el dato por concepto de " + this.NuevaData.concepto + ", cambiaras este registro",
         icon: "warning",
         buttons: true,
         dangerMode: true
@@ -487,12 +457,12 @@ Vue.component('multiselect', (vue_multiselect__WEBPACK_IMPORTED_MODULE_3___defau
             _this6.getData(_this6.pagination.current_page);
 
             _this6.NuevaData.id = '';
-            _this6.NuevaData.CategoriaGasto = '';
-            _this6.NuevaData.SubcategoriaGasto = '';
-            _this6.NuevaData.Importe = '';
-            _this6.NuevaData.Concepto = '';
+            _this6.NuevaData.categoriagasto = '';
+            _this6.NuevaData.subcategoriagasto = '';
+            _this6.NuevaData.importe = '';
+            _this6.NuevaData.concepto = '';
             _this6.showModal = !_this6.showModal;
-            sweetalert__WEBPACK_IMPORTED_MODULE_1___default()("Actualizaste la Categoria " + Data.CategoriaGasto + " de la base de datos", {
+            sweetalert__WEBPACK_IMPORTED_MODULE_1___default()("Actualizaste la Categoria " + Data.categoriagasto + " de la base de datos", {
               icon: "success"
             });
           })["catch"](function (error) {
@@ -509,22 +479,23 @@ Vue.component('multiselect', (vue_multiselect__WEBPACK_IMPORTED_MODULE_3___defau
       this.showModal = !this.showModal;
       this.ButtonNew = true;
       this.ButtonUpdate = false;
-      this.ActionType = 'Nueva Info';
-      this.NuevaData.CategoriaGasto = '';
-      this.NuevaData.SubcategoriaGasto = '';
-      this.NuevaData.Importe = '';
-      this.NuevaData.Concepto = '';
+      this.ActionType = 'Agregar Informacion';
+      this.NuevaData.id = '';
+      this.NuevaData.categoriagasto = '';
+      this.NuevaData.subcategoriagasto = '';
+      this.NuevaData.importe = '';
+      this.NuevaData.concepto = '';
     },
     AbrirModalUpdate: function AbrirModalUpdate(UpdateData) {
       this.ButtonNew = false;
       this.ButtonUpdate = true;
       this.showModal = !this.showModal;
-      this.ActionType = 'Actualizar Info';
+      this.ActionType = 'Actualizar Informacion';
       this.NuevaData.id = UpdateData.id;
-      this.NuevaData.CategoriaGasto = UpdateData.CategoriaGasto;
-      this.NuevaData.SubcategoriaGasto = UpdateData.SubcategoriaGasto;
-      this.NuevaData.Importe = UpdateData.Importe;
-      this.NuevaData.Concepto = UpdateData.Concepto;
+      this.NuevaData.categoriagasto = UpdateData.categoriagasto;
+      this.NuevaData.subcategoriagasto = UpdateData.subcategoriagasto;
+      this.NuevaData.importe = UpdateData.importe;
+      this.NuevaData.concepto = UpdateData.concepto;
     }
   }
 });
@@ -629,368 +600,378 @@ var render = function () {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "container" }, [
-    _c("div", { staticClass: "row justify-content-center" }, [
-      _c("div", { staticClass: "flex flex-col" }, [
-        _c("div", { staticClass: "-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8" }, [
+  return _c("div", [
+    _c("div", [
+      _c("div", [
+        _c("div", { staticClass: "grid grid-cols-6 gap-4" }, [
           _c(
             "div",
-            {
-              staticClass:
-                "py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8",
-            },
+            { staticClass: "col-start-1 col-end-7 ..." },
             [
-              _c("div", { staticClass: "mt-1 relative rounded-md shadow-sm" }, [
-                _c("div", { staticClass: "mb-4" }, [
-                  _c("div", { staticClass: "grid grid-cols-6 gap-4" }, [
-                    _c(
-                      "div",
-                      { staticClass: "col-start-1 col-end-7 ..." },
-                      [
-                        _c("center", [
-                          _c("br"),
+              _c("center", [
+                _c("br"),
+                _vm._v(" "),
+                _c("h1", { staticClass: "text-xl font-medium text-black" }, [
+                  _vm._v(
+                    "\n                                Apuntes Gastos\n                            "
+                  ),
+                ]),
+              ]),
+            ],
+            1
+          ),
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "search hidden sm:block" }, [
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.DataSend,
+                expression: "DataSend",
+              },
+            ],
+            staticClass:
+              "search__input form-control border-transparent placeholder-theme-13",
+            attrs: {
+              type: "text",
+              id: "Data",
+              placeholder: "Mejora tu Busqueda",
+            },
+            domProps: { value: _vm.DataSend },
+            on: {
+              keyup: function ($event) {
+                return _vm.getData()
+              },
+              input: function ($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.DataSend = $event.target.value
+              },
+            },
+          }),
+          _vm._v(" "),
+          _c("i", {
+            staticClass: "search__icon dark:text-gray-300",
+            attrs: { "data-feather": "search" },
+          }),
+        ]),
+        _vm._v(" "),
+        _c("div", [
+          _c("table", { staticClass: "table table-report sm:mt-2" }, [
+            _c("thead", { staticClass: "bg-gray-50" }, [
+              _c("tr", [
+                _c(
+                  "th",
+                  {
+                    staticClass:
+                      "px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider",
+                    attrs: { scope: "col" },
+                  },
+                  [
+                    _vm._v(
+                      "\n                                    Categorias\n                                "
+                    ),
+                  ]
+                ),
+                _vm._v(" "),
+                _c(
+                  "th",
+                  {
+                    staticClass:
+                      "px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider",
+                    attrs: { scope: "col" },
+                  },
+                  [
+                    _vm._v(
+                      "\n                                    SubCategorias\n                                "
+                    ),
+                  ]
+                ),
+                _vm._v(" "),
+                _c(
+                  "th",
+                  {
+                    staticClass:
+                      "px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider",
+                    attrs: { scope: "col" },
+                  },
+                  [
+                    _vm._v(
+                      "\n                                    Importe\n                                "
+                    ),
+                  ]
+                ),
+                _vm._v(" "),
+                _c(
+                  "th",
+                  {
+                    staticClass:
+                      "px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider",
+                    attrs: { scope: "col" },
+                  },
+                  [
+                    _vm._v(
+                      "\n                                    Concepto\n                                "
+                    ),
+                  ]
+                ),
+                _vm._v(" "),
+                _c(
+                  "th",
+                  {
+                    staticClass:
+                      "px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider",
+                    attrs: { scope: "col" },
+                  },
+                  [
+                    _vm._v(
+                      "\n                                    Fechas\n                                "
+                    ),
+                  ]
+                ),
+                _vm._v(" "),
+                _c(
+                  "th",
+                  {
+                    staticClass: "relative px-6 py-3",
+                    attrs: { scope: "col" },
+                  },
+                  [
+                    _vm._v(
+                      "\n                                    ACCIONES\n                                "
+                    ),
+                  ]
+                ),
+                _vm._v(" "),
+                _c("th", [
+                  _c(
+                    "button",
+                    {
+                      staticClass:
+                        " bg-yellow-500 \n                                                    hover:bg-yellow-700 \n                                                    text-white \n                                                    font-bold \n                                                    h-10 w-10 flex items-center justify-center\n                                                    border-yellow-700 \n                                                    rounded-full\n                                                    ",
+                      attrs: { title: "Nuevo registro" },
+                      on: {
+                        click: function ($event) {
+                          return _vm.AbrirModalCrear()
+                        },
+                      },
+                    },
+                    [
+                      _c(
+                        "svg",
+                        {
+                          staticClass: "bi bi-bookmark-plus",
+                          attrs: {
+                            xmlns: "http://www.w3.org/2000/svg",
+                            width: "20",
+                            height: "20",
+                            fill: "currentColor",
+                            viewBox: "0 0 16 16",
+                          },
+                        },
+                        [
+                          _c("path", {
+                            attrs: {
+                              "fill-rule": "evenodd",
+                              d: "M8 4a.5.5 0 0 1 .5.5V6H10a.5.5 0 0 1 0 1H8.5v1.5a.5.5 0 0 1-1 0V7H6a.5.5 0 0 1 0-1h1.5V4.5A.5.5 0 0 1 8 4z",
+                            },
+                          }),
                           _vm._v(" "),
-                          _c(
-                            "h1",
-                            { staticClass: "text-xl font-medium text-black" },
-                            [
-                              _vm._v(
-                                "\n                                           Apuntes Gastos\n                                        "
-                              ),
-                            ]
-                          ),
-                        ]),
-                      ],
-                      1
+                          _c("path", {
+                            attrs: {
+                              d: "M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.777.416L8 13.101l-5.223 2.815A.5.5 0 0 1 2 15.5V2zm2-1a1 1 0 0 0-1 1v12.566l4.723-2.482a.5.5 0 0 1 .554 0L13 14.566V2a1 1 0 0 0-1-1H4z",
+                            },
+                          }),
+                        ]
+                      ),
+                    ]
+                  ),
+                ]),
+              ]),
+            ]),
+            _vm._v(" "),
+            _c(
+              "tbody",
+              { staticClass: "bg-white divide-y divide-gray-200" },
+              _vm._l(_vm.Apuntes, function (Apunte, index) {
+                return _c("tr", { key: index }, [
+                  _c("td", { staticClass: "px-6 py-4 whitespace-nowrap" }, [
+                    _vm._v(
+                      "\n                                    " +
+                        _vm._s(Apunte.NombreCategorias) +
+                        "\n                                "
                     ),
                   ]),
                   _vm._v(" "),
-                  _c("div", { staticClass: "flex mb-4" }, [
-                    _c(
-                      "div",
-                      { staticClass: "w-1/2 bg-white-400 h-12" },
-                      [
-                        _c("center", [
-                          _c("br"),
-                          _vm._v(" "),
-                          _c(
-                            "label",
-                            {
-                              staticClass:
-                                "block text-gray-700 text-sm font-bold mb-2",
-                              attrs: { for: "username" },
-                            },
-                            [
-                              _vm._v(
-                                "\n                                            Info Busqueda\n                                        "
-                              ),
-                            ]
-                          ),
-                        ]),
-                      ],
-                      1
+                  _c("td", { staticClass: "px-6 py-4 whitespace-nowrap" }, [
+                    _vm._v(
+                      "\n                                    " +
+                        _vm._s(Apunte.NombreSubcategorias) +
+                        "\n                                "
                     ),
-                    _vm._v(" "),
-                    _c(
-                      "div",
-                      { staticClass: "w-3/4 bg-white-400 h-12" },
-                      [
-                        _c("br"),
-                        _vm._v(" "),
-                        _c("center", [
+                  ]),
+                  _vm._v(" "),
+                  _c("td", { staticClass: "px-6 py-4 whitespace-nowrap" }, [
+                    _vm._v(
+                      "\n                                    " +
+                        _vm._s(Apunte.importe) +
+                        "\n                                "
+                    ),
+                  ]),
+                  _vm._v(" "),
+                  _c("td", { staticClass: "px-6 py-4 whitespace-nowrap" }, [
+                    _vm._v(
+                      "\n                                    " +
+                        _vm._s(Apunte.concepto) +
+                        "\n                                "
+                    ),
+                  ]),
+                  _vm._v(" "),
+                  _c("td", { staticClass: "px-6 py-4 whitespace-nowrap" }, [
+                    _vm._v(
+                      "\n                                    " +
+                        _vm._s(Apunte.fecha) +
+                        "\n                                "
+                    ),
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "td",
+                    {
+                      staticClass:
+                        "px-6 py-4 whitespace-nowrap text-right text-sm font-medium",
+                    },
+                    [
+                      _c(
+                        "button",
+                        {
+                          staticClass:
+                            "  bg-red-300 hover:bg-red-400 text-red-800 font-bold py-2 px-4  rounded-full \n                                                inline-flex items-center",
+                          on: {
+                            click: function ($event) {
+                              $event.preventDefault()
+                              return _vm.DeleteData(Apunte)
+                            },
+                          },
+                        },
+                        [
                           _c(
-                            "button",
+                            "svg",
                             {
-                              staticClass:
-                                " bg-yellow-500 \n                                                    hover:bg-yellow-700 \n                                                    text-white \n                                                    font-bold \n                                                    h-10 w-10 flex items-center justify-center\n                                                    border-yellow-700 \n                                                    rounded-full\n                                                    ",
-                              attrs: { title: "Nuevo registro" },
-                              on: {
-                                click: function ($event) {
-                                  return _vm.AbrirModalCrear()
-                                },
+                              staticClass: "bi bi-trash2-fill",
+                              attrs: {
+                                xmlns: "http://www.w3.org/2000/svg",
+                                width: "16",
+                                height: "16",
+                                fill: "currentColor",
+                                viewBox: "0 0 16 16",
                               },
                             },
                             [
-                              _c(
-                                "svg",
-                                {
-                                  staticClass: "bi bi-bookmark-plus",
-                                  attrs: {
-                                    xmlns: "http://www.w3.org/2000/svg",
-                                    width: "20",
-                                    height: "20",
-                                    fill: "currentColor",
-                                    viewBox: "0 0 16 16",
-                                  },
-                                },
-                                [
-                                  _c("path", {
-                                    attrs: {
-                                      "fill-rule": "evenodd",
-                                      d: "M8 4a.5.5 0 0 1 .5.5V6H10a.5.5 0 0 1 0 1H8.5v1.5a.5.5 0 0 1-1 0V7H6a.5.5 0 0 1 0-1h1.5V4.5A.5.5 0 0 1 8 4z",
-                                    },
-                                  }),
-                                  _vm._v(" "),
-                                  _c("path", {
-                                    attrs: {
-                                      d: "M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.777.416L8 13.101l-5.223 2.815A.5.5 0 0 1 2 15.5V2zm2-1a1 1 0 0 0-1 1v12.566l4.723-2.482a.5.5 0 0 1 .554 0L13 14.566V2a1 1 0 0 0-1-1H4z",
-                                    },
-                                  }),
-                                ]
-                              ),
-                            ]
-                          ),
-                        ]),
-                      ],
-                      1
-                    ),
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "flex mb-4" }, [
-                    _c(
-                      "div",
-                      { staticClass: "w-full bg-white-500 h-12" },
-                      [
-                        _c("center", [
-                          _c(
-                            "div",
-                            { staticClass: "w-1/2 bg-white-500 h-12" },
-                            [
-                              _c("input", {
-                                directives: [
-                                  {
-                                    name: "model",
-                                    rawName: "v-model",
-                                    value: _vm.DataSend,
-                                    expression: "DataSend",
-                                  },
-                                ],
-                                staticClass:
-                                  "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline",
+                              _c("path", {
                                 attrs: {
-                                  type: "text",
-                                  id: "Data",
-                                  placeholder: "Mejora tu Busqueda",
-                                },
-                                domProps: { value: _vm.DataSend },
-                                on: {
-                                  keyup: function ($event) {
-                                    return _vm.getData()
-                                  },
-                                  input: function ($event) {
-                                    if ($event.target.composing) {
-                                      return
-                                    }
-                                    _vm.DataSend = $event.target.value
-                                  },
+                                  d: "M2.037 3.225A.703.703 0 0 1 2 3c0-1.105 2.686-2 6-2s6 .895 6 2a.702.702 0 0 1-.037.225l-1.684 10.104A2 2 0 0 1 10.305 15H5.694a2 2 0 0 1-1.973-1.671L2.037 3.225zm9.89-.69C10.966 2.214 9.578 2 8 2c-1.58 0-2.968.215-3.926.534-.477.16-.795.327-.975.466.18.14.498.307.975.466C5.032 3.786 6.42 4 8 4s2.967-.215 3.926-.534c.477-.16.795-.327.975-.466-.18-.14-.498-.307-.975-.466z",
                                 },
                               }),
                             ]
                           ),
-                        ]),
-                      ],
-                      1
-                    ),
-                  ]),
-                ]),
-              ]),
-            ]
-          ),
-          _vm._v(" "),
-          _c("div", [
-            _c(
-              "table",
-              { staticClass: "min-w-full divide-y divide-gray-200" },
-              [
-                _vm._m(0),
-                _vm._v(" "),
-                _c(
-                  "tbody",
-                  { staticClass: "bg-white divide-y divide-gray-200" },
-                  _vm._l(_vm.Apuntes, function (Apunte, index) {
-                    return _c("tr", { key: index }, [
-                      _c("td", { staticClass: "px-6 py-4 whitespace-nowrap" }, [
-                        _vm._v(
-                          "\n                                    " +
-                            _vm._s(Apunte.categoria_gasto.NombreCategorias) +
-                            "\n                                "
-                        ),
-                      ]),
-                      _vm._v(" "),
-                      _c("td", { staticClass: "px-6 py-4 whitespace-nowrap" }, [
-                        _vm._v(
-                          "\n                                    " +
-                            _vm._s(
-                              Apunte.subcategoria_gasto.NombreSubcategorias
-                            ) +
-                            "\n                                "
-                        ),
-                      ]),
-                      _vm._v(" "),
-                      _c("td", { staticClass: "px-6 py-4 whitespace-nowrap" }, [
-                        _vm._v(
-                          "\n                                    " +
-                            _vm._s(Apunte.Importe) +
-                            "\n                                "
-                        ),
-                      ]),
-                      _vm._v(" "),
-                      _c("td", { staticClass: "px-6 py-4 whitespace-nowrap" }, [
-                        _vm._v(
-                          "\n                                    " +
-                            _vm._s(Apunte.Concepto) +
-                            "\n                                "
-                        ),
-                      ]),
-                      _vm._v(" "),
-                      _c("td", { staticClass: "px-6 py-4 whitespace-nowrap" }, [
-                        _vm._v(
-                          "\n                                    " +
-                            _vm._s(Apunte.Fecha) +
-                            "\n                                "
-                        ),
-                      ]),
-                      _vm._v(" "),
+                          _vm._v(" "),
+                          _c("span", [_vm._v("Eliminar")]),
+                        ]
+                      ),
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "td",
+                    {
+                      staticClass:
+                        "px-6 py-4 whitespace-nowrap text-right text-sm font-medium",
+                    },
+                    [
                       _c(
-                        "td",
+                        "button",
                         {
                           staticClass:
-                            "px-6 py-4 whitespace-nowrap text-right text-sm font-medium",
+                            "  bg-green-300 hover:bg-green-400 text-green-800 font-bold py-2 px-4  rounded-full \n                                                inline-flex items-center",
+                          on: {
+                            click: function ($event) {
+                              $event.preventDefault()
+                              return _vm.AbrirModalUpdate(Apunte)
+                            },
+                          },
                         },
                         [
                           _c(
-                            "button",
+                            "svg",
                             {
-                              staticClass:
-                                "  bg-red-300 hover:bg-red-400 text-red-800 font-bold py-2 px-4  rounded-full \n                                                inline-flex items-center",
-                              on: {
-                                click: function ($event) {
-                                  $event.preventDefault()
-                                  return _vm.DeleteData(Apunte)
-                                },
+                              staticClass: "bi bi-brush-fill",
+                              attrs: {
+                                xmlns: "http://www.w3.org/2000/svg",
+                                width: "16",
+                                height: "16",
+                                fill: "currentColor",
+                                viewBox: "0 0 16 16",
                               },
                             },
                             [
-                              _c(
-                                "svg",
-                                {
-                                  staticClass: "bi bi-trash2-fill",
-                                  attrs: {
-                                    xmlns: "http://www.w3.org/2000/svg",
-                                    width: "16",
-                                    height: "16",
-                                    fill: "currentColor",
-                                    viewBox: "0 0 16 16",
-                                  },
+                              _c("path", {
+                                attrs: {
+                                  d: "M15.825.12a.5.5 0 0 1 .132.584c-1.53 3.43-4.743 8.17-7.095 10.64a6.067 6.067 0 0 1-2.373 1.534c-.018.227-.06.538-.16.868-.201.659-.667 1.479-1.708 1.74a8.117 8.117 0 0 1-3.078.132 3.658 3.658 0 0 1-.563-.135 1.382 1.382 0 0 1-.465-.247.714.714 0 0 1-.204-.288.622.622 0 0 1 .004-.443c.095-.245.316-.38.461-.452.393-.197.625-.453.867-.826.094-.144.184-.297.287-.472l.117-.198c.151-.255.326-.54.546-.848.528-.739 1.2-.925 1.746-.896.126.007.243.025.348.048.062-.172.142-.38.238-.608.261-.619.658-1.419 1.187-2.069 2.175-2.67 6.18-6.206 9.117-8.104a.5.5 0 0 1 .596.04z",
                                 },
-                                [
-                                  _c("path", {
-                                    attrs: {
-                                      d: "M2.037 3.225A.703.703 0 0 1 2 3c0-1.105 2.686-2 6-2s6 .895 6 2a.702.702 0 0 1-.037.225l-1.684 10.104A2 2 0 0 1 10.305 15H5.694a2 2 0 0 1-1.973-1.671L2.037 3.225zm9.89-.69C10.966 2.214 9.578 2 8 2c-1.58 0-2.968.215-3.926.534-.477.16-.795.327-.975.466.18.14.498.307.975.466C5.032 3.786 6.42 4 8 4s2.967-.215 3.926-.534c.477-.16.795-.327.975-.466-.18-.14-.498-.307-.975-.466z",
-                                    },
-                                  }),
-                                ]
-                              ),
-                              _vm._v(" "),
-                              _c("span", [_vm._v("Eliminar")]),
+                              }),
                             ]
                           ),
+                          _vm._v(" "),
+                          _c("span", [_vm._v("Actualizar")]),
                         ]
                       ),
-                      _vm._v(" "),
-                      _c(
-                        "td",
-                        {
-                          staticClass:
-                            "px-6 py-4 whitespace-nowrap text-right text-sm font-medium",
-                        },
-                        [
-                          _c(
-                            "button",
-                            {
-                              staticClass:
-                                "  bg-green-300 hover:bg-green-400 text-green-800 font-bold py-2 px-4  rounded-full \n                                                inline-flex items-center",
-                              on: {
-                                click: function ($event) {
-                                  $event.preventDefault()
-                                  return _vm.AbrirModalUpdate(Apunte)
-                                },
-                              },
-                            },
-                            [
-                              _c(
-                                "svg",
-                                {
-                                  staticClass: "bi bi-brush-fill",
-                                  attrs: {
-                                    xmlns: "http://www.w3.org/2000/svg",
-                                    width: "16",
-                                    height: "16",
-                                    fill: "currentColor",
-                                    viewBox: "0 0 16 16",
-                                  },
-                                },
-                                [
-                                  _c("path", {
-                                    attrs: {
-                                      d: "M15.825.12a.5.5 0 0 1 .132.584c-1.53 3.43-4.743 8.17-7.095 10.64a6.067 6.067 0 0 1-2.373 1.534c-.018.227-.06.538-.16.868-.201.659-.667 1.479-1.708 1.74a8.117 8.117 0 0 1-3.078.132 3.658 3.658 0 0 1-.563-.135 1.382 1.382 0 0 1-.465-.247.714.714 0 0 1-.204-.288.622.622 0 0 1 .004-.443c.095-.245.316-.38.461-.452.393-.197.625-.453.867-.826.094-.144.184-.297.287-.472l.117-.198c.151-.255.326-.54.546-.848.528-.739 1.2-.925 1.746-.896.126.007.243.025.348.048.062-.172.142-.38.238-.608.261-.619.658-1.419 1.187-2.069 2.175-2.67 6.18-6.206 9.117-8.104a.5.5 0 0 1 .596.04z",
-                                    },
-                                  }),
-                                ]
-                              ),
-                              _vm._v(" "),
-                              _c("span", [_vm._v("Actualizar")]),
-                            ]
-                          ),
-                        ]
-                      ),
-                    ])
-                  }),
-                  0
-                ),
-              ]
+                    ]
+                  ),
+                ])
+              }),
+              0
             ),
-            _vm._v(" "),
-            _c("div", { staticClass: "flex mb-4" }, [
-              _c("div", { staticClass: "inline-flex" }, [
-                _vm.pagination.current_page > 1
-                  ? _c(
-                      "button",
-                      {
-                        staticClass:
-                          "bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded-l",
-                        on: {
-                          click: function ($event) {
-                            $event.preventDefault()
-                            return _vm.changePage(
-                              _vm.pagination.current_page - 1
-                            )
-                          },
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "flex mb-4" }, [
+            _c("div", { staticClass: "inline-flex" }, [
+              _vm.pagination.current_page > 1
+                ? _c(
+                    "button",
+                    {
+                      staticClass:
+                        "bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded-l",
+                      on: {
+                        click: function ($event) {
+                          $event.preventDefault()
+                          return _vm.changePage(_vm.pagination.current_page - 1)
                         },
                       },
-                      [_c("span", [_vm._v("Atras")])]
-                    )
-                  : _vm._e(),
-                _vm._v(" "),
-                _vm.pagination.current_page < _vm.pagination.last_page
-                  ? _c(
-                      "button",
-                      {
-                        staticClass:
-                          "bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded-r",
-                        on: {
-                          click: function ($event) {
-                            $event.preventDefault()
-                            return _vm.changePage(
-                              _vm.pagination.current_page + 1
-                            )
-                          },
+                    },
+                    [_c("span", [_vm._v("Atras")])]
+                  )
+                : _vm._e(),
+              _vm._v(" "),
+              _vm.pagination.current_page < _vm.pagination.last_page
+                ? _c(
+                    "button",
+                    {
+                      staticClass:
+                        "bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded-r",
+                      on: {
+                        click: function ($event) {
+                          $event.preventDefault()
+                          return _vm.changePage(_vm.pagination.current_page + 1)
                         },
                       },
-                      [_c("span", [_vm._v("Siguiente")])]
-                    )
-                  : _vm._e(),
-              ]),
+                    },
+                    [_c("span", [_vm._v("Siguiente")])]
+                  )
+                : _vm._e(),
             ]),
           ]),
         ]),
@@ -1026,9 +1007,9 @@ var render = function () {
                         [
                           _c("p", { staticClass: "text-2xl font-semibold" }, [
                             _vm._v(
-                              "\n                        " +
+                              "\n                            " +
                                 _vm._s(_vm.ActionType) +
-                                "\n                    "
+                                "\n                        "
                             ),
                           ]),
                           _vm._v(" "),
@@ -1052,7 +1033,7 @@ var render = function () {
                                 },
                                 [
                                   _vm._v(
-                                    "\n                        ×\n                    "
+                                    "\n                            ×\n                        "
                                   ),
                                 ]
                               ),
@@ -1083,7 +1064,7 @@ var render = function () {
                                     },
                                     [
                                       _vm._v(
-                                        "\n                                    Categoria\n                                "
+                                        "\n                                        Categoria\n                                    "
                                       ),
                                     ]
                                   ),
@@ -1096,9 +1077,9 @@ var render = function () {
                                           {
                                             name: "model",
                                             rawName: "v-model",
-                                            value: _vm.NuevaData.CategoriaGasto,
+                                            value: _vm.NuevaData.categoriagasto,
                                             expression:
-                                              "NuevaData.CategoriaGasto",
+                                              "NuevaData.categoriagasto ",
                                           },
                                         ],
                                         staticClass:
@@ -1126,7 +1107,7 @@ var render = function () {
                                                 })
                                             _vm.$set(
                                               _vm.NuevaData,
-                                              "CategoriaGasto",
+                                              "categoriagasto",
                                               $event.target.multiple
                                                 ? $$selectedVal
                                                 : $$selectedVal[0]
@@ -1147,9 +1128,9 @@ var render = function () {
                                               _vm._v(
                                                 " " +
                                                   _vm._s(
-                                                    Categoria.NombreCategorias
+                                                    Categoria.nombrecategorias
                                                   ) +
-                                                  " \n                                        "
+                                                  " \n                                            "
                                               ),
                                             ]
                                           )
@@ -1205,7 +1186,7 @@ var render = function () {
                                     },
                                     [
                                       _vm._v(
-                                        "\n                                    SubCategoria\n                                "
+                                        "\n                                        SubCategoria\n                                    "
                                       ),
                                     ]
                                   ),
@@ -1219,9 +1200,9 @@ var render = function () {
                                             name: "model",
                                             rawName: "v-model",
                                             value:
-                                              _vm.NuevaData.SubcategoriaGasto,
+                                              _vm.NuevaData.subcategoriagasto,
                                             expression:
-                                              "NuevaData.SubcategoriaGasto",
+                                              "NuevaData.subcategoriagasto  ",
                                           },
                                         ],
                                         staticClass:
@@ -1249,7 +1230,7 @@ var render = function () {
                                                 })
                                             _vm.$set(
                                               _vm.NuevaData,
-                                              "SubcategoriaGasto",
+                                              "subcategoriagasto",
                                               $event.target.multiple
                                                 ? $$selectedVal
                                                 : $$selectedVal[0]
@@ -1272,9 +1253,9 @@ var render = function () {
                                               _vm._v(
                                                 " " +
                                                   _vm._s(
-                                                    SubCategoria.NombreSubcategorias
+                                                    SubCategoria.nombresubcategorias
                                                   ) +
-                                                  " \n                                        "
+                                                  " \n                                            "
                                               ),
                                             ]
                                           )
@@ -1330,7 +1311,7 @@ var render = function () {
                                   },
                                   [
                                     _vm._v(
-                                      "\n                                    Concepto\n                                "
+                                      "\n                                        Concepto\n                                    "
                                     ),
                                   ]
                                 ),
@@ -1340,8 +1321,8 @@ var render = function () {
                                     {
                                       name: "model",
                                       rawName: "v-model",
-                                      value: _vm.NuevaData.Concepto,
-                                      expression: "NuevaData.Concepto",
+                                      value: _vm.NuevaData.concepto,
+                                      expression: "NuevaData.concepto",
                                     },
                                   ],
                                   staticClass:
@@ -1352,7 +1333,7 @@ var render = function () {
                                     placeholder: "Concepto",
                                     required: "",
                                   },
-                                  domProps: { value: _vm.NuevaData.Concepto },
+                                  domProps: { value: _vm.NuevaData.concepto },
                                   on: {
                                     input: function ($event) {
                                       if ($event.target.composing) {
@@ -1360,7 +1341,7 @@ var render = function () {
                                       }
                                       _vm.$set(
                                         _vm.NuevaData,
-                                        "Concepto",
+                                        "concepto",
                                         $event.target.value
                                       )
                                     },
@@ -1384,7 +1365,7 @@ var render = function () {
                                   },
                                   [
                                     _vm._v(
-                                      "\n                                    Importe\n                                "
+                                      "\n                                        Importe\n                                    "
                                     ),
                                   ]
                                 ),
@@ -1394,8 +1375,8 @@ var render = function () {
                                     {
                                       name: "model",
                                       rawName: "v-model",
-                                      value: _vm.NuevaData.Importe,
-                                      expression: "NuevaData.Importe",
+                                      value: _vm.NuevaData.importe,
+                                      expression: "NuevaData.importe",
                                     },
                                   ],
                                   staticClass:
@@ -1406,7 +1387,7 @@ var render = function () {
                                     placeholder: "Importe",
                                     required: "",
                                   },
-                                  domProps: { value: _vm.NuevaData.Importe },
+                                  domProps: { value: _vm.NuevaData.importe },
                                   on: {
                                     input: function ($event) {
                                       if ($event.target.composing) {
@@ -1414,7 +1395,7 @@ var render = function () {
                                       }
                                       _vm.$set(
                                         _vm.NuevaData,
-                                        "Importe",
+                                        "importe",
                                         $event.target.value
                                       )
                                     },
@@ -1449,7 +1430,7 @@ var render = function () {
                                 },
                                 [
                                   _vm._v(
-                                    "\n\n                      Actualizar\n                    "
+                                    "\n\n                                Actualizar\n                        "
                                   ),
                                 ]
                               )
@@ -1471,7 +1452,7 @@ var render = function () {
                                 },
                                 [
                                   _vm._v(
-                                    "\n\n                      Nuevo Registro\n                    "
+                                    "\n\n                                Nuevo Registro\n                        "
                                   ),
                                 ]
                               )
@@ -1492,7 +1473,7 @@ var render = function () {
                             },
                             [
                               _vm._v(
-                                "\n                      Cerrar\n                    "
+                                "\n                                Cerrar\n                        "
                               ),
                             ]
                           ),
@@ -1512,96 +1493,7 @@ var render = function () {
     ]),
   ])
 }
-var staticRenderFns = [
-  function () {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("thead", { staticClass: "bg-gray-50" }, [
-      _c("tr", [
-        _c(
-          "th",
-          {
-            staticClass:
-              "px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider",
-            attrs: { scope: "col" },
-          },
-          [
-            _vm._v(
-              "\n                                    Categorias\n                                "
-            ),
-          ]
-        ),
-        _vm._v(" "),
-        _c(
-          "th",
-          {
-            staticClass:
-              "px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider",
-            attrs: { scope: "col" },
-          },
-          [
-            _vm._v(
-              "\n                                    SubCategorias\n                                "
-            ),
-          ]
-        ),
-        _vm._v(" "),
-        _c(
-          "th",
-          {
-            staticClass:
-              "px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider",
-            attrs: { scope: "col" },
-          },
-          [
-            _vm._v(
-              "\n                                    Importe\n                                "
-            ),
-          ]
-        ),
-        _vm._v(" "),
-        _c(
-          "th",
-          {
-            staticClass:
-              "px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider",
-            attrs: { scope: "col" },
-          },
-          [
-            _vm._v(
-              "\n                                    Concepto\n                                "
-            ),
-          ]
-        ),
-        _vm._v(" "),
-        _c(
-          "th",
-          {
-            staticClass:
-              "px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider",
-            attrs: { scope: "col" },
-          },
-          [
-            _vm._v(
-              "\n                                    Fechas\n                                "
-            ),
-          ]
-        ),
-        _vm._v(" "),
-        _c(
-          "th",
-          { staticClass: "relative px-6 py-3", attrs: { scope: "col" } },
-          [
-            _vm._v(
-              "\n                                    ACCIONES\n                                "
-            ),
-          ]
-        ),
-      ]),
-    ])
-  },
-]
+var staticRenderFns = []
 render._withStripped = true
 
 

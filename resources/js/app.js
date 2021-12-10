@@ -1,5 +1,5 @@
 // @ts-nocheck
-require('./bootstrap');
+//require('./bootstrap');
 
 let axios            = require('axios').default; 
 let VueAxios         = require('vue-axios').default; 

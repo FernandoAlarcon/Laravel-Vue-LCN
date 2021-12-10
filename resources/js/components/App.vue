@@ -1,23 +1,17 @@
 <template>
-  <div id="Aplicacion">  
-    <header id="header">
-            <Navbar />
-             
-            <!-- <navigationMenu></navigationMenu> -->
-    </header>
-    <div id="content">
-            <router-view></router-view> 
-    </div> 
-    
-    <Footer />
-  </div>
+ <div id="Aplicacion">  
+   <Navbar /> 
+ </div>
+   
 </template>
+
+  
 
 <script> 
 import Navbar from './Navbar.vue'
 import Footer from './Footer.vue'
 import navigationMenu from './Menu.vue'
-
+import * as useRouter from 'vue-router';
 
 export default {
   // el: '#Aplicacion',
@@ -26,8 +20,12 @@ export default {
       Navbar,
       Footer
       //navigationMenu
-   }
-  
+   },
+    created() {
+         
+
+    },
+    
 
 }
 </script>
