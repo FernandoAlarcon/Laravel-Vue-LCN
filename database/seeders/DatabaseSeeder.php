@@ -41,9 +41,9 @@ class DatabaseSeeder extends Seeder
             'role' => 1
         ]);
         //\App\Models\User::factory(10)->create();
-        CategoriasGastos::factory(5)->create();
-        SubCategoriasGastos::factory(5)->create();
-        GestionIngresos::factory(25)->create();
+        CategoriasGastos::factory(50)->create();
+        SubCategoriasGastos::factory(50)->create();
+        GestionIngresos::factory(50)->create();
         ApuntesGastos::factory(1000)->create();
     }
 }
