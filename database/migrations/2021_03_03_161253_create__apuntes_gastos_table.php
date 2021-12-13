@@ -16,13 +16,15 @@ class CreateApuntesGastosTable extends Migration
         Schema::create('apuntesgastos', function (Blueprint $table) { 
             $table->id();
             $table->dateTime('fecha');
-            $table->bigInteger('categoriagasto')->unsigned();         
+            $table->bigInteger('categoriagasto')->unsigned();    
+
             $table->foreign('categoriagasto')
                   ->references('id')
                   ->on('categoriasgastos')
                   ->onDelete('cascade');
             
             $table->bigInteger('subcategoriagasto')->unsigned(); 
+            
             $table->foreign('subcategoriagasto')
                   ->references('id')
                   ->on('subcategoriasgastos')
