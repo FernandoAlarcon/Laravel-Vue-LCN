@@ -2,6 +2,10 @@
 
 namespace Database\Seeders;
 
+use App\Models\ApuntesGastos;
+use App\Models\CategoriasGastos;
+use App\Models\SubCategoriasGastos;
+use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
