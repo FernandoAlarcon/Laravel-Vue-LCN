@@ -2,11 +2,14 @@
 
 namespace Database\Seeders;
 
-use App\Models\User;
-use App\Models\ApuntesGastos;
-use App\Models\CategoriasGastos;
+use Illuminate\Support\Facades\Hash;
+use App\Models\CategoriasGastos; 
 use App\Models\SubCategoriasGastos;
-use Illuminate\Database\Eloquent\Factories\Factory;
+use App\Models\GestionIngresos;
+use App\Models\ApuntesGastos;
+use App\Models\User;
+
+  
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
