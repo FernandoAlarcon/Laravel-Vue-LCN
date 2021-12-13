@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\User;
 use App\Models\ApuntesGastos;
 use App\Models\CategoriasGastos;
 use App\Models\SubCategoriasGastos;
