@@ -9,17 +9,14 @@
 
 <script> 
 import Navbar from './Navbar.vue'
-import Footer from './Footer.vue'
-import navigationMenu from './Menu.vue'
-import * as useRouter from 'vue-router';
+import Footer from './Footer.vue' 
 
 export default {
   // el: '#Aplicacion',
    props: ['auth'],
    components: { 
       Navbar,
-      Footer
-      //navigationMenu
+      Footer 
    },
     created() {
          

@@ -9,9 +9,8 @@ import Index from '../components/Index.vue';
 import Dashboard from '../pages/admin/Dashboard.vue';
 
 console.log('Archivo de rutas');
-const routes = [
-  // { path: '/register', name: 'register', component: Register, meta: { auth: false }},
-  // { path: '/login',    name: 'login',    component: Login,    meta: { auth: false } }, 
+const routes = [ 
+  
   // ADMIN ROUTES
   { path: '/admin', name: 'admin.dashboard', component: AdminDashboard, meta: { auth: {roles: 2, redirect: {name: 'login'}, forbiddenRedirect: '/403'} } },
 
@@ -20,11 +19,7 @@ const routes = [
   //{ path: '/index',           name: 'index',            component: AdminDashboard },
   { path: '/index',           name: 'index',            component: Index },
   { path: '/home',            name: 'home',            component:() => import('../components/Index.vue')},
-  { path: '/categorias',      name: 'categorias',      component:() => import('../components/Data/Categorias.vue')      },
-  { path: '/subcategorias',   name: 'subcategorias',   component:() => import('../components/Data/SubCategorias.vue')   },
-  { path: '/gestioningresos', name: 'gestioningresos', component:() => import('../components/Data/GestionIngresos.vue') },
-  { path: '/apuntesgastos',   name: 'apuntesgastos',   component:() => import('../components/Data/ApuntesGastos.vue')   },
-  { path: '/dataanatlityc',   name: 'dataanatlityc',   component:() => import('../components/Data/DataAnalityc.vue')    },
+  { path: '/personas',        name: 'personas',   component:() => import('../components/Data/Personas.vue')   }, 
   
   //, meta: { auth: true }
   //DataAnatlityc

@@ -8,7 +8,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="api-base-url" content="{{ config('app.url') }}">
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>LCN Seleecion</title>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -25,17 +25,14 @@
 <body>
 <div id="app"> 
             
-            
-            @guest
-                @include('home')
-            @else
+             
                 <div id="Aplicacion" >
-                    <app auth="{{ Auth::user() }}" ></app>
+                    <app auth="" ></app>
                 </div> 
                 
                 <!-- Scripts -->
                 <script src="{{ asset('js/app.js') }}" defer></script>
-            @endguest
+             
                  
     </div>
 </body>
