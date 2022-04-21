@@ -8,7 +8,7 @@
         <div class="mobile-menu md:hidden">
             <div class="mobile-menu-bar"> 
                 <router-link :to="{name: 'home'}" class="flex mr-auto" style="color: #F96332;" >
-                  Infinety Acount
+                  Prueba
                 </router-link>
 
                 <a href="javascript:;" id="mobile-menu-toggler"> 
@@ -113,7 +113,7 @@
             <nav class="side-nav">
                  
                 <router-link :to="{name: 'home'}"  class="intro-x flex items-center pl-5 pt-4" style="color: #fff;" >
-                  Data LCN Pruebas
+                  Data Pruebas
                 </router-link>
                 
                 <div class="side-nav__devider my-6"></div>
